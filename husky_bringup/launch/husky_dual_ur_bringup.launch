@@ -1,0 +1,44 @@
+<launch>
+  <arg name="left_prefix" default="left_ur_arm_"/>
+  <arg name="right_prefix" default="right_ur_arm_"/>
+  <arg name="left_robot_ip" default="192.168.131.18"/>
+  <arg name="right_robot_ip" default="192.168.131.19"/>
+  <arg name="left_robot_port" default="50001"/>
+  <arg name="right_robot_port" default="50000"/>
+  <arg name="min_payload"  default="0.0"/>
+  <arg name="max_payload"  default="10.0"/>
+  <arg name="servoj_time" default="0.008" />
+  <arg name="max_velocity" default="10.0"/>
+
+  <!-- LEFT ARM -->
+  <node name="left_ur_driver" pkg="ur_modern_driver" type="ur_driver" args="$(arg left_robot_ip) $(arg left_robot_port)" output="screen">
+    <remap from="/follow_joint_trajectory" to="left_ur_arm_controller/follow_joint_trajectory"/>
+    <remap from="/ur_driver" to="left_ur_arm_controller/ur_driver"/>
+    <param name="prefix" type="str" value="$(arg left_prefix)" />
+    <param name="robot_ip_address" type="str" value="$(arg left_robot_ip)" />
+    <param name="reverse_port" value="$(arg left_robot_port)"/>
+    <param name="min_payload" type="double" value="$(arg min_payload)" />
+    <param name="max_payload" type="double" value="$(arg max_payload)" />
+    <param name="max_velocity" type="double" value="$(arg max_velocity)" />
+  </node>
+
+  <node pkg="tf2_ros" type="buffer_server" name="left_tf2_buffer_server" respawn="true">
+    <param name="buffer_size" value="120.0"/>
+  </node>
+
+  <!-- RIGHT ARM -->
+  <node name="right_ur_driver" pkg="ur_modern_driver" type="ur_driver" args="$(arg right_robot_ip) $(arg right_robot_port)" output="screen">
+    <remap from="/follow_joint_trajectory" to="right_ur_arm_controller/follow_joint_trajectory"/>
+    <remap from="/ur_driver" to="right_ur_arm_controller/ur_driver"/>
+    <param name="prefix" type="str" value="$(arg right_prefix)" />
+    <param name="robot_ip_address" type="str" value="$(arg right_robot_ip)" />
+    <param name="reverse_port" value="$(arg right_robot_port)"/>
+    <param name="min_payload" type="double" value="$(arg min_payload)" />
+    <param name="max_payload" type="double" value="$(arg max_payload)" />
+    <param name="max_velocity" type="double" value="$(arg max_velocity)" />
+  </node>
+
+  <node pkg="tf2_ros" type="buffer_server" name="right_tf2_buffer_server" respawn="true">
+    <param name="buffer_size" value="120.0"/>
+  </node>
+</launch>

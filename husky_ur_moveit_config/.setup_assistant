@@ -1,0 +1,10 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: husky_description
+    relative_path: urdf/description.xacro
+  SRDF:
+    relative_path: config/husky.srdf
+  CONFIG:
+    author_name: Dave Niewinski
+    author_email: dniewinski@clearpathrobotics.com
+    generated_timestamp: 1512408658
