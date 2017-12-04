@@ -1,24 +1,16 @@
 <launch>
   <arg name="prefix" default="ur_arm_"/>
   <arg name="robot_ip" default="192.168.131.18"/>
-  <arg name="robot_port" default="50001"/>
-  <arg name="min_payload"  default="0.0"/>
-  <arg name="max_payload"  default="10.0"/>
   <arg name="servoj_time" default="0.008" />
-  <arg name="max_velocity" default="10.0"/>
 
-  <node name="ur_driver" pkg="ur_modern_driver" type="ur_driver" args="$(arg robot_ip) $(arg robot_port)" output="screen">
-    <remap from="/follow_joint_trajectory" to="ur_arm_controller/follow_joint_trajectory"/>
-    <remap from="/ur_driver" to="ur_arm_controller/ur_driver"/>
+  <node name="ur_driver" pkg="ur_modern_driver" type="ur_driver" output="screen">
     <param name="prefix" type="str" value="$(arg prefix)" />
     <param name="robot_ip_address" type="str" value="$(arg robot_ip)" />
-    <param name="reverse_port" value="$(arg robot_port)"/>
-    <param name="min_payload" type="double" value="$(arg min_payload)" />
-    <param name="max_payload" type="double" value="$(arg max_payload)" />
-    <param name="max_velocity" type="double" value="$(arg max_velocity)" />
+    <param name="servoj_time" type="double" value="$(arg servoj_time)" />
   </node>
 
   <node pkg="tf2_ros" type="buffer_server" name="tf2_buffer_server" respawn="true">
     <param name="buffer_size" value="120.0"/>
   </node>
 </launch>
+
