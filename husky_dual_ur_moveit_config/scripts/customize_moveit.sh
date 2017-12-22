@@ -5,7 +5,7 @@ then
   cd "$1"
 
   echo "Copying Dual UR Moveit Config"
-  cp -r $(catkin_find husky_dual_ur_moveit_config)/* .
+  cp -r $(catkin_find husky_dual_ur_moveit_config)/. .
   echo "Updating Package"
   grep -rli 'husky_dual_ur_moveit_config' * | xargs -i@ sed -i 's/husky_dual_ur_moveit_config/'$1'/g' @
   echo "Done"

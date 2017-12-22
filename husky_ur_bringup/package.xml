@@ -10,7 +10,8 @@
 
   <buildtool_depend>catkin</buildtool_depend>
 
-  <depend>ur_bringup</depend>
+  <depend>tf2_ros</depend>
+  <depend>ur_modern_driver</depend>
 
   <test_depend>roslaunch</test_depend>
 
