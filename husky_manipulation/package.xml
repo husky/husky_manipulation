@@ -9,10 +9,4 @@
   <license>BSD</license>
 
   <buildtool_depend>catkin</buildtool_depend>
-
-  <depend>husky_ur_description</depend>
-  <depend>husky_ur_bringup</depend>
-
-  <export>
-  </export>
 </package>

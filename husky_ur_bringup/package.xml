@@ -14,7 +14,4 @@
   <depend>ur_modern_driver</depend>
 
   <test_depend>roslaunch</test_depend>
-
-  <export>
-  </export>
 </package>

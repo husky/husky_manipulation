@@ -10,7 +10,5 @@
 
   <buildtool_depend>catkin</buildtool_depend>
   <depend>ur_description</depend>
-
-  <export>
-  </export>
+  <depend>husky_description</depend>
 </package>

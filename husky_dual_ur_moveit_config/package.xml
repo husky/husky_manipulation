@@ -1,5 +1,4 @@
-<package>
-
+<package format="2">
   <name>husky_dual_ur_moveit_config</name>
   <version>0.3.0</version>
   <description>
@@ -16,16 +15,15 @@
 
   <buildtool_depend>catkin</buildtool_depend>
 
-  <run_depend>moveit_ros_move_group</run_depend>
-  <run_depend>moveit_kinematics</run_depend>
-  <run_depend>moveit_planners_ompl</run_depend>
-  <run_depend>moveit_ros_visualization</run_depend>
-  <run_depend>joint_state_publisher</run_depend>
-  <run_depend>robot_state_publisher</run_depend>
-  <run_depend>xacro</run_depend>
-  <build_depend>husky_description</build_depend>
-  <run_depend>husky_description</run_depend>
-  <run_depend>trac_ik_kinematics_plugin</run_depend>
+  <depend>moveit_ros_move_group</depend>
+  <depend>moveit_kinematics</depend>
+  <depend>moveit_planners_ompl</depend>
+  <depend>moveit_ros_visualization</depend>
+  <depend>joint_state_publisher</depend>
+  <depend>xacro</depend>
+  <depend>husky_description</depend>
+  <depend>trac_ik_kinematics_plugin</depend>
+  <depend>moveit_simple_controller_manager</depend>
 
-
+  <test_depend>roslaunch</test_depend>
 </package>

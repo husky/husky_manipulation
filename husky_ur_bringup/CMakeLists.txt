@@ -6,15 +6,9 @@ find_package(catkin REQUIRED COMPONENTS
   ur_modern_driver
 )
 
-catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES husky_ur_bringup
-#  CATKIN_DEPENDS tf2_ros ur_modern_driver
-#  DEPENDS system_lib
-)
+catkin_package()
 
 include_directories(
-# include
   ${catkin_INCLUDE_DIRS}
 )
 
