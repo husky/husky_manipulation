@@ -11,7 +11,8 @@
   <arg name="max_velocity" default="10.0"/>
 
   <!-- LEFT ARM -->
-  <node name="left_ur_driver" pkg="ur_modern_driver" type="ur_driver" args="$(arg left_robot_ip) $(arg left_robot_port)" output="screen">
+  <node name="left_ur_driver" pkg="ur_modern_driver" type="ur_driver"
+    args="$(arg left_robot_ip) $(arg left_robot_port)" output="screen">
     <remap from="/follow_joint_trajectory" to="left_ur_arm_controller/follow_joint_trajectory"/>
     <remap from="/ur_driver" to="left_ur_arm_controller/ur_driver"/>
     <param name="prefix" type="str" value="$(arg left_prefix)" />
@@ -27,7 +28,8 @@
   </node>
 
   <!-- RIGHT ARM -->
-  <node name="right_ur_driver" pkg="ur_modern_driver" type="ur_driver" args="$(arg right_robot_ip) $(arg right_robot_port)" output="screen">
+  <node name="right_ur_driver" pkg="ur_modern_driver" type="ur_driver"
+    args="$(arg right_robot_ip) $(arg right_robot_port)" output="screen">
     <remap from="/follow_joint_trajectory" to="right_ur_arm_controller/follow_joint_trajectory"/>
     <remap from="/ur_driver" to="right_ur_arm_controller/ur_driver"/>
     <param name="prefix" type="str" value="$(arg right_prefix)" />

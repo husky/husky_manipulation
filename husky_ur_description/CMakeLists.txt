@@ -3,7 +3,13 @@ project(husky_ur_description)
 
 find_package(catkin REQUIRED)
 
-include_directories(
-# include
-# ${catkin_INCLUDE_DIRS}
+catkin_package()
+
+include_directories()
+
+install(DIRECTORY meshes urdf
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+)
+install(DIRECTORY scripts
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )

@@ -9,6 +9,6 @@
   <license>BSD</license>
 
   <buildtool_depend>catkin</buildtool_depend>
-  <depend>ur_description</depend>
-  <depend>husky_description</depend>
+  <exec_depend>ur_description</exec_depend>
+  <exec_depend>husky_description</exec_depend>
 </package>
