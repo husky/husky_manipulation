@@ -1,8 +1,8 @@
 <launch>
   <arg name="left_prefix" default="left_ur_arm_"/>
   <arg name="right_prefix" default="right_ur_arm_"/>
-  <arg name="left_robot_ip" default="192.168.131.18"/>
-  <arg name="right_robot_ip" default="192.168.131.19"/>
+  <arg name="left_robot_ip" default="192.168.131.40"/>
+  <arg name="right_robot_ip" default="192.168.131.41"/>
   <arg name="left_robot_port" default="50001"/>
   <arg name="right_robot_port" default="50000"/>
   <arg name="min_payload"  default="0.0"/>
