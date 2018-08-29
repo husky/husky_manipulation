@@ -5,12 +5,17 @@
   <!-- The name of the parameter under which the URDF is loaded -->
   <arg name="robot_description" default="robot_description"/>
 
+  <arg name="urdf_extras" default="$(optenv HUSKY_URDF_EXTRAS)"/>
+
   <!-- Load universal robot description format (URDF) -->
-  <param if="$(arg load_robot_description)" name="$(arg robot_description)" command="$(find xacro)/xacro.py '$(find husky_description)/urdf/description.xacro'"/>
+  <param if="$(arg load_robot_description)" name="$(arg robot_description)" command="$(find xacro)/xacro.py '$(find husky_description)/urdf/husky.urdf.xacro'
+    --inorder
+    urdf_extras:=$(arg urdf_extras)
+    " />
 
   <!-- The semantic description that corresponds to the URDF -->
   <param name="$(arg robot_description)_semantic" textfile="$(find husky_dual_ur_moveit_config)/config/husky.srdf" />
-  
+
   <!-- Load updated joint limits (override information from URDF) -->
   <group ns="$(arg robot_description)_planning">
     <rosparam command="load" file="$(find husky_dual_ur_moveit_config)/config/joint_limits.yaml"/>
@@ -20,5 +25,5 @@
   <group ns="$(arg robot_description)_kinematics">
     <rosparam command="load" file="$(find husky_dual_ur_moveit_config)/config/kinematics.yaml"/>
   </group>
-  
+
 </launch>

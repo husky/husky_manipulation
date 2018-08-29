@@ -1,7 +1,7 @@
 moveit_setup_assistant_config:
   URDF:
     package: husky_description
-    relative_path: urdf/description.xacro
+    relative_path: urdf/husky.urdf.xacro
   SRDF:
     relative_path: config/husky.srdf
   CONFIG:
