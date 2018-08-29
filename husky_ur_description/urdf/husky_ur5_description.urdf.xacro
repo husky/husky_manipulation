@@ -1,5 +1,8 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find ur_description)/urdf/ur5.urdf.xacro" />
+
   <link name="ur_plate_link">
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
