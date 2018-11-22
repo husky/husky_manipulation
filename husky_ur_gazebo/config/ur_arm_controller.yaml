@@ -1,4 +1,4 @@
-index fur_arm_controller:
+ur_arm_controller:
   type: position_controllers/JointTrajectoryController
   joints:
      - ur_arm_shoulder_pan_joint
