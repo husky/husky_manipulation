@@ -7,8 +7,8 @@
 
   <!-- Spawn controllers -->
   <node name="arm_controller_spawner" pkg="controller_manager" type="spawner"
-      args="left_ur_arm_controller right_ur_arm_controller"/>
-      
+      args="left_ur_arm_controller right_ur_arm_controller joint_state_controller"/>
+
   <include file="$(arg husky_world)">
     <arg name="laser_enabled" value="$(arg laser_enabled)"/>
     <arg name="kinect_enabled" value="$(arg kinect_enabled)"/>

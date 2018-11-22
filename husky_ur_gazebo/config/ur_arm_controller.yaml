@@ -1,4 +1,4 @@
-ur_arm_controller:
+index fur_arm_controller:
   type: position_controllers/JointTrajectoryController
   joints:
      - ur_arm_shoulder_pan_joint
@@ -8,14 +8,18 @@ ur_arm_controller:
      - ur_arm_wrist_2_joint
      - ur_arm_wrist_3_joint
   constraints:
-      goal_time: 0.6
-      stopped_velocity_tolerance: 0.05
-      ur_arm_shoulder_pan_joint: {trajectory: 0.1, goal: 0.1}
-      ur_arm_shoulder_lift_joint: {trajectory: 0.1, goal: 0.1}
-      ur_arm_elbow_joint: {trajectory: 0.1, goal: 0.1}
-      ur_arm_wrist_1_joint: {trajectory: 0.1, goal: 0.1}
-      ur_arm_wrist_2_joint: {trajectory: 0.1, goal: 0.1}
-      ur_arm_wrist_3_joint: {trajectory: 0.1, goal: 0.1}
+    goal_time: 0.6
+    stopped_velocity_tolerance: 0.05
+    ur_arm_shoulder_pan_joint: {trajectory: 0.1, goal: 0.1}
+    ur_arm_shoulder_lift_joint: {trajectory: 0.1, goal: 0.1}
+    ur_arm_elbow_joint: {trajectory: 0.1, goal: 0.1}
+    ur_arm_wrist_1_joint: {trajectory: 0.1, goal: 0.1}
+    ur_arm_wrist_2_joint: {trajectory: 0.1, goal: 0.1}
+    ur_arm_wrist_3_joint: {trajectory: 0.1, goal: 0.1}
   stop_trajectory_duration: 0.5
   state_publish_rate:  25
   action_monitor_rate: 10
+
+joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50
