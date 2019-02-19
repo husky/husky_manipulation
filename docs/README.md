@@ -3,6 +3,13 @@ The purpose of this package is to make integration of manipulators much simpler.
 
 This doc will cover the setup for a single UR husky, but the process is identical for dual arm husky or any other arm, just with slightly different package names.
 
+## Cloning
+To clone this repository and all necessary dependencies:
+
+```
+git clone https://github.com/husky/husky_manipulation.git --recursive
+```
+
 ## URDF
 In your URDF, make sure to include the husky_manipulation description that you want. For example, if you are using a single UR5, make sure to include the line below in your URDF:
 

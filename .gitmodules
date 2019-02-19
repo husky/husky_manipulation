@@ -1,0 +1,6 @@
+[submodule "ur_modern_driver"]
+	path = ur_modern_driver
+	url = https://github.com/dniewinski/ur_modern_driver.git
+[submodule "universal_robot"]
+	path = universal_robot
+	url = https://github.com/dniewinski/universal_robot.git
