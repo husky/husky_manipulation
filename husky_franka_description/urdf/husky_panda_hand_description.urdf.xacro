@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+  <joint name="franka_mount_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="franka_mount_link" />
+    <origin xyz="$(optenv HUSKY_FRANKA_XYZ 0.494 0 0.225)" rpy="$(optenv HUSKY_FRANKA_RPY 0 0 0)"/>
+  </joint>
+
+  <link name="franka_mount_link" />
+
+  <xacro:include filename="$(find franka_description)/robots/panda_arm.xacro"/>
+  <xacro:include filename="$(find franka_description)/robots/hand.xacro"/>
+  <xacro:panda_arm connected_to="franka_mount_link"/>
+  <xacro:hand ns="panda" rpy="0 0 ${-pi/4}" connected_to="panda_link8"/>
+</robot>
