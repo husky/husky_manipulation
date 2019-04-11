@@ -3,31 +3,10 @@
 
   <xacro:include filename="$(find ur_description)/urdf/ur5.urdf.xacro" />
 
-  <link name="ur_plate_link">
-    <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="package://husky_ur_description/meshes/ur_plate.dae"/>
-      </geometry>
-    </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="package://husky_ur_description/meshes/ur_plate_collision.stl"/>
-      </geometry>
-    </collision>
-  </link>
-
-  <joint name="ur_plate_joint" type="fixed">
-    <parent link="base_link" />
-    <child link="ur_plate_link" />
-    <origin xyz="0.494 0 0.225" rpy="0 0 0"/>
-  </joint>
-
   <joint name="arm_mount_joint" type="fixed">
-    <parent link="ur_plate_link" />
+    <parent link="top_plate_front_link" />
     <child link="ur_arm_base_link" />
-    <origin xyz="$(optenv HUSKY_UR_XYZ -0.105 0.0 0.00635)" rpy="$(optenv HUSKY_UR_RPY 0 0 3.1415927)"/>
+    <origin xyz="$(optenv HUSKY_UR_XYZ -0.105 0.0 0.0)" rpy="$(optenv HUSKY_UR_RPY 0 0 3.1415927)"/>
   </joint>
 
   <xacro:ur5_robot prefix="ur_arm_" joint_limited="true"/>
