@@ -9,6 +9,8 @@ include_directories()
 install(DIRECTORY urdf
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
-install(DIRECTORY scripts
+install(PROGRAMS
+  scripts/setup_husky_panda_envar
+  scripts/setup_husky_panda_hand_envar
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )

@@ -10,6 +10,14 @@ include_directories()
 install(DIRECTORY meshes urdf
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
-install(DIRECTORY scripts
+install(PROGRAMS
+scripts/setup_husky_dual_ur3_e_envar
+scripts/setup_husky_dual_ur3_envar
+scripts/setup_husky_dual_ur5_e_envar
+scripts/setup_husky_dual_ur5_envar
+scripts/setup_husky_ur3_e_envar
+scripts/setup_husky_ur3_envar
+scripts/setup_husky_ur5_e_envar
+scripts/setup_husky_ur5_envar
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )

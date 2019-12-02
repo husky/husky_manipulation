@@ -18,3 +18,8 @@ endif()
 install(DIRECTORY launch
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
+
+install(PROGRAMS
+  scripts/arm_reset.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
