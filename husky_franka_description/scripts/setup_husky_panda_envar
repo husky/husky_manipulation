@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 export HUSKY_USER_RAIL_ENABLED=false
 export HUSKY_LARGE_TOP_PLATE=true
 
