@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:include filename="$(find kortex_description)/robots/gen3.xacro" />
+
+  <joint name="arm_mount_joint" type="fixed">
+    <origin xyz="$(optenv HUSKY_KINOVA_XYZ -0.105 0 0)" rpy="$(optenv HUSKY_KINOVA_RPY 0 0 0)" />
+    <parent link="top_plate_front_link" />
+    <child link="arm_base_link" />
+  </joint>
+
+</robot>

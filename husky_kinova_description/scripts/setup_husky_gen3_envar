@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+export HUSKY_URDF_EXTRAS=$(catkin_find husky_kinova_description urdf/husky_gen3_description.urdf.xacro --first-only)

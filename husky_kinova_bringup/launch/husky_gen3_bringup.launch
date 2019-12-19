@@ -1,0 +1,16 @@
+<launch>
+  <arg name="arm" default="$(optenv HUSKY_KINOVA_ARM gen3)"/>
+  <arg name="ip_address" default="192.168.131.40"/>
+  <arg name="gripper" default="$(optenv HUSKY_KINOVA_GRIPPER robotiq_2f_85)"/>
+  <arg name="start_rviz" default="false"/>
+  <arg name="robot_name" default=""/>
+
+  <include file="$(find kortex_driver)/launch/kortex_driver.launch" >
+    <arg name="arm" value="$(arg arm)"/>
+    <arg name="ip_address" value="$(arg ip_address)"/>
+    <arg name="gripper" value="$(arg gripper)"/>
+    <arg name="start_rviz" value="$(arg start_rviz)"/>
+    <arg name="start_moveit" value="False"/>
+    <arg name="robot_name" value="$(arg robot_name)"/>
+  </include>
+</launch>
