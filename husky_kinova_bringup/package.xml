@@ -11,6 +11,8 @@
   <buildtool_depend>catkin</buildtool_depend>
   <exec_depend>kortex_driver</exec_depend>
 
+  <test_depend>roslaunch</test_depend>
+  
   <export>
   </export>
 </package>
