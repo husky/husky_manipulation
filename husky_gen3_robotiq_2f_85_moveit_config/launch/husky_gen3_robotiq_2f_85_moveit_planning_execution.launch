@@ -1,0 +1,4 @@
+<launch>
+  <include file="$(find husky_gen3_robotiq_2f_85_moveit_config)/launch/planning_context.launch" />
+  <include file="$(find husky_gen3_robotiq_2f_85_moveit_config)/launch/move_group.launch" />
+</launch>

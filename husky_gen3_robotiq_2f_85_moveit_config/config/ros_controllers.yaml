@@ -31,7 +31,7 @@ joint_state_controller:
   type: joint_state_controller/JointStateController
   publish_rate: 50
 controller_list:
-  - name: "gen3_joint_trajectory_controller"
+  - name: "my_gen3/gen3_joint_trajectory_controller"
     action_ns: follow_joint_trajectory
     default: True
     type: FollowJointTrajectory
@@ -43,7 +43,7 @@ controller_list:
       - joint_5
       - joint_6
       - joint_7
-  - name: "robotiq_2f_85_gripper_controller"
+  - name: "my_gen3/robotiq_2f_85_gripper_controller"
     action_ns: gripper_cmd
     default: True
     type: GripperCommand

@@ -36,6 +36,12 @@
     <passive_joint name="front_right_wheel" />
     <passive_joint name="rear_left_wheel" />
     <passive_joint name="rear_right_wheel" />
+    <passive_joint name="gripper_finger1_finger_tip_joint" />
+    <passive_joint name="gripper_finger1_inner_knuckle_joint" />
+    <passive_joint name="gripper_finger1_joint" />
+    <passive_joint name="gripper_finger2_finger_tip_joint" />
+    <passive_joint name="gripper_finger2_inner_knuckle_joint" />
+    <passive_joint name="gripper_finger2_joint" />
     <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
     <disable_collisions link1="arm_base_link" link2="base_link" reason="Never" />
     <disable_collisions link1="arm_base_link" link2="forearm_link" reason="Never" />

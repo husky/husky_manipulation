@@ -23,6 +23,41 @@
         <link name="gripper_finger2_knuckle_link" />
         <link name="gripper_finger2_finger_link" />
     </group>
+    <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
+    <group_state name="zeros" group="manipulator">
+        <joint name="joint_1" value="0" />
+        <joint name="joint_2" value="0" />
+        <joint name="joint_3" value="0" />
+        <joint name="joint_4" value="0" />
+        <joint name="joint_5" value="0" />
+        <joint name="joint_6" value="0" />
+        <joint name="joint_7" value="0" />
+    </group_state>
+    <group_state name="stow" group="manipulator">
+        <joint name="joint_1" value="0" />
+        <joint name="joint_2" value="-0.5032" />
+        <joint name="joint_3" value="0" />
+        <joint name="joint_4" value="2.5138" />
+        <joint name="joint_5" value="0" />
+        <joint name="joint_6" value="0.9557" />
+        <joint name="joint_7" value="-1.57" />
+    </group_state>
+    <group_state name="opened" group="gripper">
+        <joint name="gripper_finger1_finger_tip_joint" value="0" />
+        <joint name="gripper_finger1_inner_knuckle_joint" value="0" />
+        <joint name="gripper_finger1_joint" value="0" />
+        <joint name="gripper_finger2_finger_tip_joint" value="0" />
+        <joint name="gripper_finger2_inner_knuckle_joint" value="0" />
+        <joint name="gripper_finger2_joint" value="0" />
+    </group_state>
+    <group_state name="closed" group="gripper">
+        <joint name="gripper_finger1_finger_tip_joint" value="0.804" />
+        <joint name="gripper_finger1_inner_knuckle_joint" value="0.804" />
+        <joint name="gripper_finger1_joint" value="0.804" />
+        <joint name="gripper_finger2_finger_tip_joint" value="-0.804" />
+        <joint name="gripper_finger2_inner_knuckle_joint" value="0.804" />
+        <joint name="gripper_finger2_joint" value="0.804" />
+    </group_state>
     <!--PASSIVE JOINT: Purpose: this element is used to mark joints that are not actuated-->
     <passive_joint name="front_left_wheel" />
     <passive_joint name="front_right_wheel" />
