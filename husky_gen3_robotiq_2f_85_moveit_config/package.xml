@@ -27,4 +27,5 @@
   <exec_depend>husky_description</exec_depend>
   <exec_depend>trac_ik_kinematics_plugin</exec_depend>
 
+  <test_depend>roslaunch</test_depend>
 </package>
