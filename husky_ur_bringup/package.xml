@@ -12,6 +12,7 @@
 
   <exec_depend>tf2_ros</exec_depend>
   <exec_depend>ur_modern_driver</exec_depend>
+  <exec_depend>ur_robot_driver</exec_depend>
 
   <test_depend>roslaunch</test_depend>
 </package>
