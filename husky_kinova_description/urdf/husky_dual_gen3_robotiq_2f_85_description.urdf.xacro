@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:arg name="arm" default="gen3" />
+  <xacro:arg name="dof" default="7" />
+  <xacro:arg name="vision" default="true" />
+
+  <xacro:arg name="gripper" default="robotiq_2f_85" />
+
+  <xacro:arg name="sim" default="false" />
+  <xacro:arg name="left_prefix" default="left_kinova_arm_" />
+  <xacro:arg name="right_prefix" default="right_kinova_arm_" />
+
+  <xacro:include filename="$(find kortex_description)/robots/kortex_robot.xacro" />
+  <xacro:load_robot arm="$(arg arm)" gripper="$(arg gripper)" dof="$(arg dof)" vision="$(arg vision)" sim="$(arg sim)" prefix="$(arg left_prefix)" />
+  <xacro:load_robot arm="$(arg arm)" gripper="$(arg gripper)" dof="$(arg dof)" vision="$(arg vision)" sim="$(arg sim)" prefix="$(arg right_prefix)" />
+
+  <link name="dual_arm_bulkhead_link">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://husky_kinova_description/meshes/dual_arm_bulkhead.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://husky_kinova_description/meshes/dual_arm_bulkhead_collision.stl"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="dual_arm_bulkhead_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="dual_arm_bulkhead_link"/>
+    <origin xyz="0 0 0.224" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="left_arm_mount_joint" type="fixed">
+    <parent link="dual_arm_bulkhead_link" />
+    <child link="left_kinova_arm_base_link" />
+    <origin xyz="$(optenv HUSKY_LEFT_KINOVA_XYZ 0.1225 0.14891 0.13371)" rpy="$(optenv HUSKY_LEFT_KINOVA_RPY 0.785398 0 3.14159)"/>
+  </joint>
+
+  <joint name="right_arm_mount_joint" type="fixed">
+    <parent link="dual_arm_bulkhead_link" />
+    <child link="right_kinova_arm_base_link" />
+    <origin xyz="$(optenv HUSKY_RIGHT_KINOVA_XYZ 0.1225 -0.14891 0.13371)" rpy="$(optenv HUSKY_RIGHT_KINOVA_RPY 0.785398 0 0)"/>
+  </joint>
+</robot>
