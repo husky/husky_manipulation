@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="cyclic_data_publish_rate" default="100"/> <!--Hz-->
+    <arg name="use_hard_limits" default="false"/>
+
+    <!-- LEFT ARM -->
+    <arg name="left_robot_name" default="left_kinova_arm"/>
+    <arg name="left_prefix" default="left_kinova_arm_"/>
+    <arg name="left_arm" default="gen3"/>
+    <arg name="left_dof" default="7"/>
+    <arg name="left_vision" default="true"/>
+
+    <!-- Gripper configuration -->
+    <arg name="left_gripper" default=""/>
+
+    <!-- Kortex API options -->
+    <arg name="left_ip_address" default="192.168.131.40"/>
+    <arg name="left_username" default="admin"/>
+    <arg name="left_password" default="admin"/>
+    <arg name="left_cyclic_data_publish_rate" default="$(arg cyclic_data_publish_rate)"/> <!--Hz-->
+    <arg name="left_api_rpc_timeout_ms" default="2000"/> <!--milliseconds-->
+    <arg name="left_api_session_inactivity_timeout_ms" default="35000"/> <!--milliseconds-->
+    <arg name="left_api_connection_inactivity_timeout_ms" default="20000"/> <!--milliseconds-->
+
+    <!-- Action server params -->
+    <arg name="left_default_goal_time_tolerance" default="0.5"/> <!--seconds-->
+    <arg name="left_default_goal_tolerance" default="0.005"/> <!--radians-->
+
+    <!-- RIGHT ARM -->
+    <arg name="right_robot_name" default="right_kinova_arm"/>
+    <arg name="right_prefix" default="right_kinova_arm_"/>
+    <arg name="right_arm" default="gen3"/>
+    <arg name="right_dof" default="7"/>
+    <arg name="right_vision" default="true"/>
+
+    <!-- Gripper configuration -->
+    <arg name="right_gripper" default=""/>
+
+    <!-- Kortex API options -->
+    <arg name="right_ip_address" default="192.168.131.41"/>
+    <arg name="right_username" default="admin"/>
+    <arg name="right_password" default="admin"/>
+    <arg name="right_cyclic_data_publish_rate" default="$(arg cyclic_data_publish_rate)"/> <!--Hz-->
+    <arg name="right_api_rpc_timeout_ms" default="2000"/> <!--milliseconds-->
+    <arg name="right_api_session_inactivity_timeout_ms" default="35000"/> <!--milliseconds-->
+    <arg name="right_api_connection_inactivity_timeout_ms" default="20000"/> <!--milliseconds-->
+
+    <!-- Action server params -->
+    <arg name="right_default_goal_time_tolerance" default="0.5"/> <!--seconds-->
+    <arg name="right_default_goal_tolerance" default="0.005"/> <!--radians-->
+
+    <!-- Start the left arm kortex_driver node -->
+    <node name="$(arg left_robot_name)_driver" pkg="kortex_driver" type="kortex_arm_driver" output="screen" ns="$(arg left_robot_name)">
+        <param name="ip_address" value="$(arg left_ip_address)"/>
+        <param name="username" value="$(arg left_username)"/>
+        <param name="password" value="$(arg left_password)"/>
+        <param name="cyclic_data_publish_rate" value="$(arg left_cyclic_data_publish_rate)"/>
+        <param name="api_rpc_timeout_ms" value="$(arg left_api_rpc_timeout_ms)"/>
+        <param name="api_session_inactivity_timeout_ms" value="$(arg left_api_session_inactivity_timeout_ms)"/>
+        <param name="api_connection_inactivity_timeout_ms" value="$(arg left_api_connection_inactivity_timeout_ms)"/>
+        <param name="default_goal_time_tolerance" value="$(arg left_default_goal_time_tolerance)"/>
+        <param name="default_goal_tolerance" value="$(arg left_default_goal_tolerance)"/>
+        <param name="arm" value="$(arg left_arm)"/>
+        <param name="gripper" value="$(arg left_gripper)"/>
+        <param name="dof" value="$(arg left_dof)"/>
+        <param name="use_hard_limits" value="$(arg use_hard_limits)"/>
+        <param name="prefix" value="$(arg left_prefix)"/>
+        <rosparam command="load" file="$(find kortex_description)/arms/$(arg left_arm)/$(arg left_dof)dof/config/joint_limits.yaml"/>
+        <rosparam command="load" file="$(find kortex_description)/grippers/$(arg left_gripper)/config/joint_limits.yaml" unless="$(eval not arg('left_gripper'))"/>
+    </node>
+    <!-- Start the right arm kortex_driver node -->
+    <node name="$(arg right_robot_name)_driver" pkg="kortex_driver" type="kortex_arm_driver" output="screen" ns="$(arg right_robot_name)">
+        <param name="ip_address" value="$(arg right_ip_address)"/>
+        <param name="username" value="$(arg right_username)"/>
+        <param name="password" value="$(arg right_password)"/>
+        <param name="cyclic_data_publish_rate" value="$(arg right_cyclic_data_publish_rate)"/>
+        <param name="api_rpc_timeout_ms" value="$(arg right_api_rpc_timeout_ms)"/>
+        <param name="api_session_inactivity_timeout_ms" value="$(arg right_api_session_inactivity_timeout_ms)"/>
+        <param name="api_connection_inactivity_timeout_ms" value="$(arg right_api_connection_inactivity_timeout_ms)"/>
+        <param name="default_goal_time_tolerance" value="$(arg right_default_goal_time_tolerance)"/>
+        <param name="default_goal_tolerance" value="$(arg right_default_goal_tolerance)"/>
+        <param name="arm" value="$(arg right_arm)"/>
+        <param name="gripper" value="$(arg right_gripper)"/>
+        <param name="dof" value="$(arg right_dof)"/>
+        <param name="use_hard_limits" value="$(arg use_hard_limits)"/>
+        <param name="prefix" value="$(arg right_prefix)"/>
+        <rosparam command="load" file="$(find kortex_description)/arms/$(arg right_arm)/$(arg right_dof)dof/config/joint_limits.yaml"/>
+        <rosparam command="load" file="$(find kortex_description)/grippers/$(arg right_gripper)/config/joint_limits.yaml" unless="$(eval not arg('right_gripper'))"/>
+    </node>
+
+    <!-- Start joint and robot state publisher -->
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+        <param name="rate" value="$(arg cyclic_data_publish_rate)" />
+        <rosparam param="source_list" subst_value="true">
+            [$(arg left_robot_name)/base_feedback/joint_state, $(arg right_robot_name)/base_feedback/joint_state]
+        </rosparam>
+        <param name="use_gui" value="false"/>
+    </node>
+</launch>

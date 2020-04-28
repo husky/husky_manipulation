@@ -1,16 +1,45 @@
 <launch>
-  <arg name="arm" default="$(optenv HUSKY_KINOVA_ARM gen3)"/>
-  <arg name="ip_address" default="$(optenv HUSKY_KINOVA_IP 192.168.131.40)"/>
-  <arg name="gripper" default="$(optenv HUSKY_KINOVA_GRIPPER robotiq_2f_85)"/>
-  <arg name="start_rviz" default="false"/>
+  <!-- RIGHT ARM -->
+  <arg name="robot_name" default="kinova_arm"/>
+  <arg name="prefix" default="kinova_arm_"/>
+  <arg name="arm" default="gen3"/>
+  <arg name="dof" default="7"/>
+  <arg name="vision" default="true"/>
 
-  <include file="$(find kortex_driver)/launch/kortex_driver.launch" >
-    <arg name="arm" value="$(arg arm)"/>
-    <arg name="ip_address" value="$(arg ip_address)"/>
-    <arg name="gripper" value="$(arg gripper)"/>
-    <arg name="start_rviz" value="$(arg start_rviz)"/>
-    <arg name="start_moveit" value="False"/>
-  </include>
+  <!-- Gripper configuration -->
+  <arg name="gripper" default=""/>
 
-  <node name="joint_state_relay" type="relay" pkg="topic_tools" args="/my_gen3/joint_states /joint_states" />
+  <!-- Kortex API options -->
+  <arg name="ip_address" default="192.168.131.40"/>
+  <arg name="username" default="admin"/>
+  <arg name="password" default="admin"/>
+  <arg name="cyclic_data_publish_rate" default="$(arg cyclic_data_publish_rate)"/> <!--Hz-->
+  <arg name="api_rpc_timeout_ms" default="2000"/> <!--milliseconds-->
+  <arg name="api_session_inactivity_timeout_ms" default="35000"/> <!--milliseconds-->
+  <arg name="api_connection_inactivity_timeout_ms" default="20000"/> <!--milliseconds-->
+
+  <!-- Action server params -->
+  <arg name="default_goal_time_tolerance" default="0.5"/> <!--seconds-->
+  <arg name="default_goal_tolerance" default="0.005"/> <!--radians-->
+
+  <node name="$(arg robot_name)_driver" pkg="kortex_driver" type="kortex_arm_driver" output="screen" ns="$(arg robot_name)">
+      <param name="ip_address" value="$(arg ip_address)"/>
+      <param name="username" value="$(arg username)"/>
+      <param name="password" value="$(arg password)"/>
+      <param name="cyclic_data_publish_rate" value="$(arg cyclic_data_publish_rate)"/>
+      <param name="api_rpc_timeout_ms" value="$(arg api_rpc_timeout_ms)"/>
+      <param name="api_session_inactivity_timeout_ms" value="$(arg api_session_inactivity_timeout_ms)"/>
+      <param name="api_connection_inactivity_timeout_ms" value="$(arg api_connection_inactivity_timeout_ms)"/>
+      <param name="default_goal_time_tolerance" value="$(arg default_goal_time_tolerance)"/>
+      <param name="default_goal_tolerance" value="$(arg default_goal_tolerance)"/>
+      <param name="arm" value="$(arg arm)"/>
+      <param name="gripper" value="$(arg gripper)"/>
+      <param name="dof" value="$(arg dof)"/>
+      <param name="use_hard_limits" value="$(arg use_hard_limits)"/>
+      <param name="prefix" value="$(arg prefix)"/>
+      <rosparam command="load" file="$(find kortex_description)/arms/$(arg arm)/$(arg dof)dof/config/joint_limits.yaml"/>
+      <rosparam command="load" file="$(find kortex_description)/grippers/$(arg gripper)/config/joint_limits.yaml" unless="$(eval not arg('gripper'))"/>
+  </node>
+
+  <node name="joint_state_relay" type="relay" pkg="topic_tools" args="/kinova_arm/joint_states /joint_states" />
 </launch>
