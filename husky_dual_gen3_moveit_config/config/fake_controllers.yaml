@@ -1,0 +1,19 @@
+controller_list:
+  - name: fake_manipulator_left_controller
+    joints:
+      - left_kinova_arm_joint_1
+      - left_kinova_arm_joint_2
+      - left_kinova_arm_joint_3
+      - left_kinova_arm_joint_4
+      - left_kinova_arm_joint_5
+      - left_kinova_arm_joint_6
+      - left_kinova_arm_joint_7
+  - name: fake_manipulator_right_controller
+    joints:
+      - right_kinova_arm_joint_1
+      - right_kinova_arm_joint_2
+      - right_kinova_arm_joint_3
+      - right_kinova_arm_joint_4
+      - right_kinova_arm_joint_5
+      - right_kinova_arm_joint_6
+      - right_kinova_arm_joint_7

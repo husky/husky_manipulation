@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: husky_description
+    relative_path: urdf/husky.urdf.xacro
+    xacro_args: "--inorder "
+  SRDF:
+    relative_path: config/husky.srdf
+  CONFIG:
+    author_name: Dave Niewinski
+    author_email: dniewinski@clerpathrobotics.com
+    generated_timestamp: 1588106110
