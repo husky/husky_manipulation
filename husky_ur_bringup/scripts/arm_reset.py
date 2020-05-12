@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#! /usr/bin/python3
 
 import socket
 import sys
@@ -11,21 +11,21 @@ sock = socket.create_connection(('192.168.131.40', 29999))
 try:
     # Send data
     message = 'close safety popup' + '\n'
-    print >>sys.stderr, 'sending "%s"' % message
+    print('sending "%s"' % message, file=sys.stderr)
     sock.send(message)
 
     data = sock.recv(4096)
     print("Received", (data))
 
     message = 'power on' + '\n'
-    print >>sys.stderr, 'sending "%s"' % message
+    print('sending "%s"' % message, file=sys.stderr)
     sock.send(message)
 
     data = sock.recv(4096)
     print("Received", (data))
 
     message = 'brake release' + '\n'
-    print >>sys.stderr, 'sending "%s"' % message
+    print('sending "%s"' % message, file=sys.stderr)
     sock.send(message)
 
     data = sock.recv(4096)
@@ -34,5 +34,5 @@ try:
 
 
 finally:
-    print >>sys.stderr, 'closing socket'
+    print('closing socket', file=sys.stderr)
     sock.close()
