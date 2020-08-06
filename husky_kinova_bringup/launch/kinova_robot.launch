@@ -1,0 +1,23 @@
+<launch>
+  <arg name="kinova_robotType" default="NOT_SET"/>
+  <arg name="kinova_robotName" default="NOT_SET"/>
+  <arg name="kinova_robotSerial" default="NOT_SET"/>
+
+  <node name="$(arg kinova_robotName)_driver" pkg="kinova_driver" type="kinova_arm_driver" output="screen" cwd="node"
+    args="$(arg kinova_robotType)">
+    <rosparam file="$(find kinova_bringup)/launch/config/robot_parameters.yaml" command="load" />
+    <param name="serial_number" value="$(arg kinova_robotSerial)" />
+    <param name="robot_name" value="$(arg kinova_robotName)" />
+    <param name="robot_type" value="$(arg kinova_robotType)" />
+  </node>
+
+  <node name="$(arg kinova_robotName)_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+    <remap from="joint_states" to="/$(arg kinova_robotName)_driver/out/joint_state"/>
+  </node>
+
+  <node pkg="topic_tools" type="relay" name="$(arg kinova_robotName)_joint_relay"
+    args="/$(arg kinova_robotName)_driver/out/joint_state /joint_states" />
+
+  <node name="$(arg kinova_robotName)_joint_trajectory_action_server" pkg="kinova_driver"
+    type="joint_trajectory_action_server" output="screen" respawn="false" args="$(arg kinova_robotName)"/>
+</launch>
