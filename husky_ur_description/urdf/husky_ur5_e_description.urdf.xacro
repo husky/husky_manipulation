@@ -3,11 +3,15 @@
 
   <xacro:include filename="$(find ur_e_description)/urdf/ur5e.urdf.xacro" />
 
+  <xacro:arg name="kinematics_config" default="$(find ur_description)/config/ur5e_default.yaml" />
+  <xacro:arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface"/>
+  <xacro:include filename="$(find ur_description)/urdf/common.gazebo.xacro" />
+
   <joint name="arm_mount_joint" type="fixed">
     <parent link="top_plate_front_link" />
     <child link="ur_arm_base_link" />
     <origin xyz="$(optenv HUSKY_UR_XYZ -0.105 0.0 0.0)" rpy="$(optenv HUSKY_UR_RPY 0 0 3.1415927)"/>
   </joint>
 
-  <xacro:ur5e_robot prefix="ur_arm_" joint_limited="true"/>
+  <xacro:ur5e_robot prefix="ur_arm_" joint_limited="true" kinematics_file="${load_yaml('$(arg kinematics_config)')}" />
 </robot>

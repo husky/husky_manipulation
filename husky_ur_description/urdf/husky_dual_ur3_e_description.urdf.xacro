@@ -3,6 +3,10 @@
 
   <xacro:include filename="$(find ur_e_description)/urdf/ur3e.urdf.xacro" />
 
+  <xacro:arg name="kinematics_config" default="$(find ur_description)/config/ur3e_default.yaml" />
+  <xacro:arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface"/>
+  <xacro:include filename="$(find ur_description)/urdf/common.gazebo.xacro" />
+
   <link name="dual_arm_bulkhead_link">
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -36,6 +40,6 @@
     <origin xyz="$(optenv HUSKY_RIGHT_UR_XYZ 0.1225 -0.14891 0.13371)" rpy="$(optenv HUSKY_RIGHT_UR_RPY 0.785398 0 0)"/>
   </joint>
 
-  <xacro:ur3e_robot prefix="right_ur_arm_" joint_limited="true"/>
-  <xacro:ur3e_robot prefix="left_ur_arm_" joint_limited="true"/>
+  <xacro:ur3e_robot prefix="right_ur_arm_" joint_limited="true" kinematics_file="${load_yaml('$(arg kinematics_config)')}" />
+  <xacro:ur3e_robot prefix="left_ur_arm_" joint_limited="true" kinematics_file="${load_yaml('$(arg kinematics_config)')}" />
 </robot>
