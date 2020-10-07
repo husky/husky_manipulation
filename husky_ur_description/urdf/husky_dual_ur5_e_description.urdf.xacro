@@ -3,9 +3,9 @@
 
   <xacro:include filename="$(find ur_e_description)/urdf/ur5e.urdf.xacro" />
 
-  <xacro:arg name="kinematics_config" default="$(find ur_description)/config/ur5e_default.yaml" />
+  <xacro:arg name="kinematics_config" default="$(find ur_e_description)/config/ur5e_default.yaml" />
   <xacro:arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface"/>
-  <xacro:include filename="$(find ur_description)/urdf/common.gazebo.xacro" />
+  <xacro:include filename="$(find ur_e_description)/urdf/common.gazebo.xacro" />
 
   <link name="dual_arm_bulkhead_link">
     <visual>
