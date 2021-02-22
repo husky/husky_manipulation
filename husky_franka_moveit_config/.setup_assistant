@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: husky_description
+    relative_path: urdf/husky.urdf.xacro
+    xacro_args: urdf_extras:=/home/dniewinski/ws/franka_ws/src/husky_manipulation/husky_franka_description/urdf/husky_panda_hand_description.urdf.xacro
+  SRDF:
+    relative_path: config/husky.srdf
+  CONFIG:
+    author_name: Dave Niewinski
+    author_email: dniewinski@clearpathrobotics.com
+    generated_timestamp: 1614008381

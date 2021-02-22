@@ -3,7 +3,7 @@
   <joint name="franka_mount_joint" type="fixed">
     <parent link="base_link" />
     <child link="franka_mount_link" />
-    <origin xyz="$(optenv HUSKY_FRANKA_XYZ 0.494 0 0.225)" rpy="$(optenv HUSKY_FRANKA_RPY 0 0 0)"/>
+    <origin xyz="$(optenv HUSKY_FRANKA_XYZ 0.375 0 0.234)" rpy="$(optenv HUSKY_FRANKA_RPY 0 0 0)"/>
   </joint>
 
   <link name="franka_mount_link" />

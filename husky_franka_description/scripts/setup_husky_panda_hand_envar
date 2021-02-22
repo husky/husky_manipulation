@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 export HUSKY_USER_RAIL_ENABLED=false
 export HUSKY_LARGE_TOP_PLATE=true
+export HUSKY_FRANKA_GRIPPER=true
 
 export HUSKY_URDF_EXTRAS=$(catkin_find husky_franka_description urdf/husky_panda_hand_description.urdf.xacro --first-only)
