@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: husky_description
+    relative_path: urdf/husky.urdf.xacro
+    xacro_args: urdf_extras:='$(find husky_kinova_description)/urdf/husky_gen3_lite_description.urdf.xacro'
+  SRDF:
+    relative_path: config/husky.srdf
+  CONFIG:
+    author_name: Chris Iverach-Brereton
+    author_email: civerachb@clearpathrobotics.com
+    generated_timestamp: 1619645723
