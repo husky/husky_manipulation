@@ -9,17 +9,12 @@ generic_hw_control_loop:
 # Settings for ros_control hardware interface
 hardware_interface:
   joints:
-    - front_left_wheel
-    - front_right_wheel
-    - rear_left_wheel
-    - rear_right_wheel
     - kinova_arm_joint_1
     - kinova_arm_joint_2
     - kinova_arm_joint_3
     - kinova_arm_joint_4
     - kinova_arm_joint_5
     - kinova_arm_joint_6
-    - kinova_arm_right_finger_bottom_joint
   sim_control_mode: 1  # 0: position, 1: velocity
 # Publish all joint states
 # Creates the /joint_states topic necessary in ROS
@@ -32,9 +27,9 @@ controller_list:
     default: True
     type: FollowJointTrajectory
     joints:
-      - arm_joint_1
-      - arm_joint_2
-      - arm_joint_3
-      - arm_joint_4
-      - arm_joint_5
-      - arm_joint_6
+      - kinova_arm_joint_1
+      - kinova_arm_joint_2
+      - kinova_arm_joint_3
+      - kinova_arm_joint_4
+      - kinova_arm_joint_5
+      - kinova_arm_joint_6
