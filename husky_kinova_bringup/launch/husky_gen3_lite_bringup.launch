@@ -6,6 +6,8 @@
   <arg name="dof" default="6"/>
   <arg name="vision" default="false"/>
 
+  <arg name="simulation" default="false" />
+
   <!-- Gripper configuration -->
   <arg name="gripper" default="gen3_lite_2f"/>
 
@@ -38,6 +40,8 @@
       <param name="dof" value="$(arg dof)"/>
       <param name="use_hard_limits" value="$(arg use_hard_limits)"/>
       <param name="prefix" value="$(arg prefix)"/>
+      <param name="sim" value="$(arg simulation)" />
+      <param name="robot_name" value="$(arg robot_name)" />
       <rosparam command="load" file="$(find kortex_description)/arms/$(arg arm)/$(arg dof)dof/config/joint_limits.yaml"/>
       <rosparam command="load" file="$(find kortex_description)/grippers/$(arg gripper)/config/joint_limits.yaml" unless="$(eval not arg('gripper'))"/>
   </node>
