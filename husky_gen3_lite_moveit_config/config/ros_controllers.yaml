@@ -4,7 +4,7 @@ moveit_sim_hw_interface:
   joint_model_group_pose: vertical
 # Settings for ros_control_boilerplate control loop
 generic_hw_control_loop:
-  loop_hz: 300
+  loop_hz: 40
   cycle_time_error_threshold: 0.01
 # Settings for ros_control hardware interface
 hardware_interface:

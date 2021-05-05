@@ -17,6 +17,9 @@
   <param name="request_adapters" value="$(arg planning_adapters)" />
   <param name="start_state_max_bounds_error" value="$(arg start_state_max_bounds_error)" />
 
+  <!-- PreComputedJointTrajectory Action Server needs 1msec timesteps between waypoints  -->
+  <param name="sample_duration" value="0.001"/>
+
   <rosparam command="load" file="$(find husky_gen3_lite_moveit_config)/config/ompl_planning.yaml"/>
 
 </launch>
