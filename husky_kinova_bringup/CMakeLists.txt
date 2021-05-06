@@ -9,6 +9,7 @@ if (CATKIN_ENABLE_TESTING)
   find_package(roslaunch REQUIRED)
   roslaunch_add_file_check(launch/husky_dual_gen3_bringup.launch)
   roslaunch_add_file_check(launch/husky_gen3_bringup.launch)
+  roslaunch_add_file_check(launch/husky_gen3_lite_bringup.launch)
 endif()
 
 include_directories(

@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- Arm configuration -->
+    <arg name="arm" default="gen3_lite"/>
+    <arg name="dof" default="6"/>
+    <arg name="vision" default="false"/>
+    <arg name="use_hard_limits" default="false"/>
+    <arg name="gripper" default="gen3_lite_2f"/>
+
+    <!-- Namespace -->
+    <arg name="robot_name" default="kinova_arm"/>
+    <arg name="prefix" default="kinova_arm_"/>
+
+    <!-- Kortex API options -->
+    <arg name="ip_address" default="192.168.1.10"/>
+    <arg name="username" default="admin"/>
+    <arg name="password" default="admin"/>
+    <arg name="cyclic_data_publish_rate" default="40"/> <!--Hz-->
+    <arg name="api_rpc_timeout_ms" default="2000"/> <!--milliseconds-->
+    <arg name="api_session_inactivity_timeout_ms" default="35000"/> <!--milliseconds-->
+    <arg name="api_connection_inactivity_timeout_ms" default="20000"/> <!--milliseconds-->
+
+
+    <!-- Action server params -->
+    <arg name="default_goal_time_tolerance" default="0.5"/> <!--seconds-->
+    <arg name="default_goal_tolerance" default="0.005"/> <!--radians-->
+
+    <group ns="$(arg robot_name)">
+
+        <!-- Start the kortex_driver node -->
+        <node name="$(arg robot_name)_driver" pkg="kortex_driver" type="kortex_arm_driver" output="screen"> <!--launch-prefix="gdb -ex run args"-->
+            <param name="sim" value="false"/>
+            <param name="ip_address" value="$(arg ip_address)"/>
+            <param name="username" value="$(arg username)"/>
+            <param name="password" value="$(arg password)"/>
+            <param name="cyclic_data_publish_rate" value="$(arg cyclic_data_publish_rate)"/>
+            <param name="api_rpc_timeout_ms" value="$(arg api_rpc_timeout_ms)"/>
+            <param name="api_session_inactivity_timeout_ms" value="$(arg api_session_inactivity_timeout_ms)"/>
+            <param name="api_connection_inactivity_timeout_ms" value="$(arg api_connection_inactivity_timeout_ms)"/>
+            <param name="default_goal_time_tolerance" value="$(arg default_goal_time_tolerance)"/>
+            <param name="default_goal_tolerance" value="$(arg default_goal_tolerance)"/>
+            <param name="arm" value="$(arg arm)"/>
+            <param name="gripper" value="$(arg gripper)"/>
+            <param name="dof" value="$(arg dof)"/>
+            <param name="use_hard_limits" value="$(arg use_hard_limits)"/>
+            <param name="robot_name" value="$(arg robot_name)"/>
+            <param name="prefix" value="$(arg prefix)"/>
+            <rosparam command="load" file="$(find kortex_description)/arms/$(arg arm)/$(arg dof)dof/config/joint_limits.yaml" subst_value="true"/>
+            <!-- If there is a gripper, load the active joint names for it -->
+            <rosparam command="load" file="$(find kortex_description)/grippers/$(arg gripper)/config/joint_limits.yaml" unless="$(eval not arg('gripper'))" subst_value="true"/>
+        </node>
+
+        <node name="joint_state_relay" type="relay" pkg="topic_tools" args="/kinova_arm/base_feedback/joint_state /joint_states" />
+
+    </group>
+</launch>
