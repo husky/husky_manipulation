@@ -3,7 +3,7 @@
 
   <xacro:include filename="$(find ur_description)/urdf/ur5.urdf.xacro" />
 
-  <xacro:arg name="kinematics_config" default="$(find ur_description)/config/ur5_default.yaml" />
+  <xacro:arg name="kinematics_config" default="$(find ur_description)/config/ur5/default_kinematics.yaml" />
   <xacro:arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface"/>
   <xacro:include filename="$(find ur_description)/urdf/common.gazebo.xacro" />
 
