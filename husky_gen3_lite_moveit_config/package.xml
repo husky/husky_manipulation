@@ -27,6 +27,8 @@
   <run_depend>robot_state_publisher</run_depend>
   <run_depend>tf2_ros</run_depend>
   <run_depend>xacro</run_depend>
+  <run_depend>ros_controllers</run_depend>
+  <run_depend>trac_ik_kinematics_plugin</run_depend>
   <!-- This package is referenced in the warehouse launch files, but does not build out of the box at the moment. Commented the dependency until this works. -->
   <!-- <run_depend>warehouse_ros_mongo</run_depend> -->
     <run_depend>husky_description</run_depend>
