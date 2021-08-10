@@ -18,6 +18,7 @@ install(PROGRAMS
   scripts/setup_husky_dual_gen3_robotiq_2f_85_envar
   scripts/setup_husky_dual_gen3_robotiq_2f_140_envar
   scripts/setup_husky_gen3_envar
+  scripts/setup_husky_gen3_lite_envar
   scripts/setup_husky_gen3_robotiq_2f_85_envar
   scripts/setup_husky_gen3_robotiq_2f_140_envar
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
