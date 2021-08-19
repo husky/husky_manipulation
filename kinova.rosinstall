@@ -1,0 +1,4 @@
+- git:
+  uri: https://github.com/Kinovarobotics/ros_kortex.git
+  local-name: ros_kortex
+  version: melodic-devel
