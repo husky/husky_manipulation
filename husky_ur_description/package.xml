@@ -10,6 +10,5 @@
 
   <buildtool_depend>catkin</buildtool_depend>
   <exec_depend>ur_description</exec_depend>
-  <exec_depend>ur_e_description</exec_depend>
   <exec_depend>husky_description</exec_depend>
 </package>
