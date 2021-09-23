@@ -16,35 +16,35 @@
         <chain base_link="right_ur_arm_base_link" tip_link="right_ur_arm_tool0" />
     </group>
     <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
-    <group_state name="left_zero" group="manipulator_left">
+    <group_state name="left_vertical" group="manipulator_left">
         <joint name="left_ur_arm_elbow_joint" value="0" />
-        <joint name="left_ur_arm_shoulder_lift_joint" value="0" />
+        <joint name="left_ur_arm_shoulder_lift_joint" value="-0.7853" />
         <joint name="left_ur_arm_shoulder_pan_joint" value="0" />
-        <joint name="left_ur_arm_wrist_1_joint" value="0" />
+        <joint name="left_ur_arm_wrist_1_joint" value="-1.5707" />
         <joint name="left_ur_arm_wrist_2_joint" value="0" />
         <joint name="left_ur_arm_wrist_3_joint" value="0" />
     </group_state>
-    <group_state name="right_zero" group="manipulator_right">
+    <group_state name="right_vertical" group="manipulator_right">
         <joint name="right_ur_arm_elbow_joint" value="0" />
-        <joint name="right_ur_arm_shoulder_lift_joint" value="0" />
+        <joint name="right_ur_arm_shoulder_lift_joint" value="-2.3561" />
         <joint name="right_ur_arm_shoulder_pan_joint" value="0" />
-        <joint name="right_ur_arm_wrist_1_joint" value="0" />
+        <joint name="right_ur_arm_wrist_1_joint" value="-1.5707" />
         <joint name="right_ur_arm_wrist_2_joint" value="0" />
         <joint name="right_ur_arm_wrist_3_joint" value="0" />
     </group_state>
     <group_state name="left_stow" group="manipulator_left">
         <joint name="left_ur_arm_elbow_joint" value="-2.6473" />
         <joint name="left_ur_arm_shoulder_lift_joint" value="-0.4942" />
-        <joint name="left_ur_arm_shoulder_pan_joint" value="0" />
-        <joint name="left_ur_arm_wrist_1_joint" value="-1.5707" />
+        <joint name="left_ur_arm_shoulder_pan_joint" value="-1.5707" />
+        <joint name="left_ur_arm_wrist_1_joint" value="0" />
         <joint name="left_ur_arm_wrist_2_joint" value="1.5707" />
         <joint name="left_ur_arm_wrist_3_joint" value="0" />
     </group_state>
     <group_state name="right_stow" group="manipulator_right">
         <joint name="right_ur_arm_elbow_joint" value="2.6473" />
         <joint name="right_ur_arm_shoulder_lift_joint" value="-2.6473" />
-        <joint name="right_ur_arm_shoulder_pan_joint" value="0" />
-        <joint name="right_ur_arm_wrist_1_joint" value="-1.5707" />
+        <joint name="right_ur_arm_shoulder_pan_joint" value="1.5707" />
+        <joint name="right_ur_arm_wrist_1_joint" value="3.1415" />
         <joint name="right_ur_arm_wrist_2_joint" value="-1.5707" />
         <joint name="right_ur_arm_wrist_3_joint" value="0" />
     </group_state>
@@ -66,8 +66,6 @@
     <disable_collisions link1="base_link" link2="right_ur_arm_base_link_inertia" reason="Never" />
     <disable_collisions link1="base_link" link2="right_ur_arm_shoulder_link" reason="Never" />
     <disable_collisions link1="base_link" link2="top_chassis_link" reason="Adjacent" />
-    <disable_collisions link1="base_link" link2="top_plate_link" reason="Adjacent" />
-    <disable_collisions link1="base_link" link2="user_rail_link" reason="Adjacent" />
     <disable_collisions link1="dual_arm_bulkhead_link" link2="front_bumper_link" reason="Default" />
     <disable_collisions link1="dual_arm_bulkhead_link" link2="front_left_wheel_link" reason="Never" />
     <disable_collisions link1="dual_arm_bulkhead_link" link2="front_right_wheel_link" reason="Never" />
@@ -79,8 +77,6 @@
     <disable_collisions link1="dual_arm_bulkhead_link" link2="right_ur_arm_base_link_inertia" reason="Adjacent" />
     <disable_collisions link1="dual_arm_bulkhead_link" link2="right_ur_arm_shoulder_link" reason="Never" />
     <disable_collisions link1="dual_arm_bulkhead_link" link2="top_chassis_link" reason="Default" />
-    <disable_collisions link1="dual_arm_bulkhead_link" link2="top_plate_link" reason="Default" />
-    <disable_collisions link1="dual_arm_bulkhead_link" link2="user_rail_link" reason="Default" />
     <disable_collisions link1="front_bumper_link" link2="front_left_wheel_link" reason="Never" />
     <disable_collisions link1="front_bumper_link" link2="front_right_wheel_link" reason="Never" />
     <disable_collisions link1="front_bumper_link" link2="left_ur_arm_base_link_inertia" reason="Never" />
@@ -91,8 +87,6 @@
     <disable_collisions link1="front_bumper_link" link2="right_ur_arm_base_link_inertia" reason="Never" />
     <disable_collisions link1="front_bumper_link" link2="right_ur_arm_shoulder_link" reason="Never" />
     <disable_collisions link1="front_bumper_link" link2="top_chassis_link" reason="Default" />
-    <disable_collisions link1="front_bumper_link" link2="top_plate_link" reason="Never" />
-    <disable_collisions link1="front_bumper_link" link2="user_rail_link" reason="Never" />
     <disable_collisions link1="front_left_wheel_link" link2="front_right_wheel_link" reason="Never" />
     <disable_collisions link1="front_left_wheel_link" link2="left_ur_arm_base_link_inertia" reason="Never" />
     <disable_collisions link1="front_left_wheel_link" link2="left_ur_arm_shoulder_link" reason="Never" />
@@ -103,8 +97,6 @@
     <disable_collisions link1="front_left_wheel_link" link2="right_ur_arm_shoulder_link" reason="Never" />
     <disable_collisions link1="front_left_wheel_link" link2="right_ur_arm_upper_arm_link" reason="Never" />
     <disable_collisions link1="front_left_wheel_link" link2="top_chassis_link" reason="Never" />
-    <disable_collisions link1="front_left_wheel_link" link2="top_plate_link" reason="Never" />
-    <disable_collisions link1="front_left_wheel_link" link2="user_rail_link" reason="Never" />
     <disable_collisions link1="front_right_wheel_link" link2="left_ur_arm_base_link_inertia" reason="Never" />
     <disable_collisions link1="front_right_wheel_link" link2="left_ur_arm_shoulder_link" reason="Never" />
     <disable_collisions link1="front_right_wheel_link" link2="left_ur_arm_upper_arm_link" reason="Never" />
@@ -114,8 +106,6 @@
     <disable_collisions link1="front_right_wheel_link" link2="right_ur_arm_base_link_inertia" reason="Never" />
     <disable_collisions link1="front_right_wheel_link" link2="right_ur_arm_shoulder_link" reason="Never" />
     <disable_collisions link1="front_right_wheel_link" link2="top_chassis_link" reason="Never" />
-    <disable_collisions link1="front_right_wheel_link" link2="top_plate_link" reason="Never" />
-    <disable_collisions link1="front_right_wheel_link" link2="user_rail_link" reason="Never" />
     <disable_collisions link1="left_ur_arm_base_link_inertia" link2="left_ur_arm_shoulder_link" reason="Adjacent" />
     <disable_collisions link1="left_ur_arm_base_link_inertia" link2="rear_bumper_link" reason="Never" />
     <disable_collisions link1="left_ur_arm_base_link_inertia" link2="rear_left_wheel_link" reason="Never" />
@@ -123,8 +113,6 @@
     <disable_collisions link1="left_ur_arm_base_link_inertia" link2="right_ur_arm_base_link_inertia" reason="Never" />
     <disable_collisions link1="left_ur_arm_base_link_inertia" link2="right_ur_arm_shoulder_link" reason="Never" />
     <disable_collisions link1="left_ur_arm_base_link_inertia" link2="top_chassis_link" reason="Never" />
-    <disable_collisions link1="left_ur_arm_base_link_inertia" link2="top_plate_link" reason="Never" />
-    <disable_collisions link1="left_ur_arm_base_link_inertia" link2="user_rail_link" reason="Never" />
     <disable_collisions link1="left_ur_arm_forearm_link" link2="left_ur_arm_upper_arm_link" reason="Adjacent" />
     <disable_collisions link1="left_ur_arm_forearm_link" link2="left_ur_arm_wrist_1_link" reason="Adjacent" />
     <disable_collisions link1="left_ur_arm_forearm_link" link2="left_ur_arm_wrist_2_link" reason="Never" />
@@ -135,8 +123,6 @@
     <disable_collisions link1="left_ur_arm_shoulder_link" link2="right_ur_arm_base_link_inertia" reason="Never" />
     <disable_collisions link1="left_ur_arm_shoulder_link" link2="right_ur_arm_shoulder_link" reason="Never" />
     <disable_collisions link1="left_ur_arm_shoulder_link" link2="top_chassis_link" reason="Never" />
-    <disable_collisions link1="left_ur_arm_shoulder_link" link2="top_plate_link" reason="Never" />
-    <disable_collisions link1="left_ur_arm_shoulder_link" link2="user_rail_link" reason="Never" />
     <disable_collisions link1="left_ur_arm_upper_arm_link" link2="rear_bumper_link" reason="Never" />
     <disable_collisions link1="left_ur_arm_upper_arm_link" link2="rear_right_wheel_link" reason="Never" />
     <disable_collisions link1="left_ur_arm_wrist_1_link" link2="left_ur_arm_wrist_2_link" reason="Adjacent" />
@@ -148,35 +134,22 @@
     <disable_collisions link1="rear_bumper_link" link2="right_ur_arm_shoulder_link" reason="Never" />
     <disable_collisions link1="rear_bumper_link" link2="right_ur_arm_upper_arm_link" reason="Never" />
     <disable_collisions link1="rear_bumper_link" link2="top_chassis_link" reason="Default" />
-    <disable_collisions link1="rear_bumper_link" link2="top_plate_link" reason="Never" />
-    <disable_collisions link1="rear_bumper_link" link2="user_rail_link" reason="Never" />
     <disable_collisions link1="rear_left_wheel_link" link2="rear_right_wheel_link" reason="Never" />
     <disable_collisions link1="rear_left_wheel_link" link2="right_ur_arm_base_link_inertia" reason="Never" />
     <disable_collisions link1="rear_left_wheel_link" link2="right_ur_arm_shoulder_link" reason="Never" />
     <disable_collisions link1="rear_left_wheel_link" link2="right_ur_arm_upper_arm_link" reason="Never" />
     <disable_collisions link1="rear_left_wheel_link" link2="top_chassis_link" reason="Never" />
-    <disable_collisions link1="rear_left_wheel_link" link2="top_plate_link" reason="Never" />
-    <disable_collisions link1="rear_left_wheel_link" link2="user_rail_link" reason="Never" />
     <disable_collisions link1="rear_right_wheel_link" link2="right_ur_arm_base_link_inertia" reason="Never" />
     <disable_collisions link1="rear_right_wheel_link" link2="right_ur_arm_shoulder_link" reason="Never" />
     <disable_collisions link1="rear_right_wheel_link" link2="top_chassis_link" reason="Never" />
-    <disable_collisions link1="rear_right_wheel_link" link2="top_plate_link" reason="Never" />
-    <disable_collisions link1="rear_right_wheel_link" link2="user_rail_link" reason="Never" />
     <disable_collisions link1="right_ur_arm_base_link_inertia" link2="right_ur_arm_shoulder_link" reason="Adjacent" />
     <disable_collisions link1="right_ur_arm_base_link_inertia" link2="top_chassis_link" reason="Never" />
-    <disable_collisions link1="right_ur_arm_base_link_inertia" link2="top_plate_link" reason="Never" />
-    <disable_collisions link1="right_ur_arm_base_link_inertia" link2="user_rail_link" reason="Never" />
     <disable_collisions link1="right_ur_arm_forearm_link" link2="right_ur_arm_upper_arm_link" reason="Adjacent" />
     <disable_collisions link1="right_ur_arm_forearm_link" link2="right_ur_arm_wrist_1_link" reason="Adjacent" />
     <disable_collisions link1="right_ur_arm_forearm_link" link2="right_ur_arm_wrist_2_link" reason="Never" />
     <disable_collisions link1="right_ur_arm_shoulder_link" link2="right_ur_arm_upper_arm_link" reason="Adjacent" />
     <disable_collisions link1="right_ur_arm_shoulder_link" link2="top_chassis_link" reason="Never" />
-    <disable_collisions link1="right_ur_arm_shoulder_link" link2="top_plate_link" reason="Never" />
-    <disable_collisions link1="right_ur_arm_shoulder_link" link2="user_rail_link" reason="Never" />
     <disable_collisions link1="right_ur_arm_wrist_1_link" link2="right_ur_arm_wrist_2_link" reason="Adjacent" />
     <disable_collisions link1="right_ur_arm_wrist_1_link" link2="right_ur_arm_wrist_3_link" reason="Never" />
     <disable_collisions link1="right_ur_arm_wrist_2_link" link2="right_ur_arm_wrist_3_link" reason="Adjacent" />
-    <disable_collisions link1="top_chassis_link" link2="top_plate_link" reason="Never" />
-    <disable_collisions link1="top_chassis_link" link2="user_rail_link" reason="Default" />
-    <disable_collisions link1="top_plate_link" link2="user_rail_link" reason="Default" />
 </robot>
