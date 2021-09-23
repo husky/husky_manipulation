@@ -18,6 +18,20 @@
     </collision>
   </link>
 
+  <link name="left_arm_bulkhead_link" />
+  <joint name="left_arm_bulkhead_joint" type="fixed">
+    <parent link="dual_arm_bulkhead_link" />
+    <child link="left_arm_bulkhead_link" />
+    <origin xyz="0.1225 0.14891 0.13371" rpy="0 -${pi/4} -${pi/2}"/>
+  </joint>
+
+  <link name="right_arm_bulkhead_link" />
+  <joint name="right_arm_bulkhead_joint" type="fixed">
+    <parent link="dual_arm_bulkhead_link" />
+    <child link="right_arm_bulkhead_link" />
+    <origin xyz="0.1225 -0.14891 0.13371" rpy="0 ${pi/4} -${pi/2}"/>
+  </joint>
+
   <joint name="dual_arm_bulkhead_joint" type="fixed">
     <parent link="base_link"/>
     <child link="dual_arm_bulkhead_link"/>
@@ -25,15 +39,15 @@
   </joint>
 
   <joint name="left_arm_mount_joint" type="fixed">
-    <parent link="dual_arm_bulkhead_link" />
+    <parent link="left_arm_bulkhead_link" />
     <child link="left_ur_arm_base_link" />
-    <origin xyz="$(optenv HUSKY_LEFT_UR_XYZ 0.1225 0.14891 0.13371)" rpy="$(optenv HUSKY_LEFT_UR_RPY 0.785398 0 3.14159)"/>
+    <origin xyz="$(optenv HUSKY_LEFT_UR_XYZ 0 0 0)" rpy="$(optenv HUSKY_LEFT_UR_RPY 0 0 0)"/>
   </joint>
 
   <joint name="right_arm_mount_joint" type="fixed">
-    <parent link="dual_arm_bulkhead_link" />
+    <parent link="right_arm_bulkhead_link" />
     <child link="right_ur_arm_base_link" />
-    <origin xyz="$(optenv HUSKY_RIGHT_UR_XYZ 0.1225 -0.14891 0.13371)" rpy="$(optenv HUSKY_RIGHT_UR_RPY 0.785398 0 0)"/>
+    <origin xyz="$(optenv HUSKY_RIGHT_UR_XYZ 0 0 0)" rpy="$(optenv HUSKY_RIGHT_UR_RPY 0 0 0)"/>
   </joint>
 
   <xacro:ur5_robot prefix="right_ur_arm_" />
