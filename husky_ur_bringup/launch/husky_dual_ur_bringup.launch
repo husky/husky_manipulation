@@ -4,7 +4,7 @@
 
   <arg name="left_controller_config_file" default="$(find husky_ur_bringup)/config/left_ur_controllers.yaml" doc="Config file used for defining the ROS-Control controllers."/>
   <arg name="left_robot_ip" default="$(optenv HUSKY_LEFT_UR_IP 192.168.131.41)" doc="IP address by which the robot can be reached."/>
-  <arg name="left_kinematics_config" default="$(find husky_ur_bringup)/config/default_config.yaml" doc="Kinematics config file used for calibration correction. This will be used to verify the robot's calibration is matching the robot_description."/>
+  <arg name="left_kinematics_config" default="$(eval optenv('HUSKY_LEFT_UR_KINEMATICS_CONFIG', find('husky_ur_bringup')+'/config/default_config.yaml'))" doc="Kinematics config file used for calibration correction. This will be used to verify the robot's calibration is matching the robot_description."/>
   <arg name="left_prefix" default="left_ur_arm_" doc="tf_prefix used for the robot."/>
   <arg name="left_controllers" default="left_ur_arm_joint_state_controller left_ur_arm_scaled_pos_joint_traj_controller left_ur_arm_speed_scaling_state_controller left_ur_arm_force_torque_sensor_controller left_ur_arm_robot_status_controller" />
   <arg name="left_stopped_controllers" default="left_ur_arm_pos_joint_traj_controller"/>
@@ -14,7 +14,7 @@
 
   <arg name="right_controller_config_file" default="$(find husky_ur_bringup)/config/right_ur_controllers.yaml" doc="Config file used for defining the ROS-Control controllers."/>
   <arg name="right_robot_ip" default="$(optenv HUSKY_RIGHT_UR_IP 192.168.131.40)" doc="IP address by which the robot can be reached."/>
-  <arg name="right_kinematics_config" default="$(find husky_ur_bringup)/config/default_config.yaml" doc="Kinematics config file used for calibration correction. This will be used to verify the robot's calibration is matching the robot_description."/>
+  <arg name="right_kinematics_config" default="$(eval optenv('HUSKY_RIGHT_UR_KINEMATICS_CONFIG', find('husky_ur_bringup')+'/config/default_config.yaml'))" doc="Kinematics config file used for calibration correction. This will be used to verify the robot's calibration is matching the robot_description."/>
   <arg name="right_prefix" default="right_ur_arm_" doc="tf_prefix used for the robot."/>
   <arg name="right_controllers" default="right_ur_arm_joint_state_controller right_ur_arm_scaled_pos_joint_traj_controller right_ur_arm_speed_scaling_state_controller right_ur_arm_force_torque_sensor_controller right_ur_arm_robot_status_controller" />
   <arg name="right_stopped_controllers" default="right_ur_arm_pos_joint_traj_controller"/>
