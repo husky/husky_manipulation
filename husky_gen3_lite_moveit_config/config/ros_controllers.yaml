@@ -22,7 +22,7 @@ joint_state_controller:
   type: joint_state_controller/JointStateController
   publish_rate: 50
 controller_list:
-  - name: kinova_arm/gen3_lite_joint_trajectory_controller
+  - name: kinova_arm/kinova_arm_gen3_lite_joint_trajectory_controller
     action_ns: follow_joint_trajectory
     default: True
     type: FollowJointTrajectory
