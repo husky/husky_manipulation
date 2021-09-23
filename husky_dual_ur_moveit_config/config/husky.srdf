@@ -36,7 +36,7 @@
         <joint name="left_ur_arm_elbow_joint" value="-2.6473" />
         <joint name="left_ur_arm_shoulder_lift_joint" value="-0.4942" />
         <joint name="left_ur_arm_shoulder_pan_joint" value="-1.5707" />
-        <joint name="left_ur_arm_wrist_1_joint" value="-1.5707" />
+        <joint name="left_ur_arm_wrist_1_joint" value="0" />
         <joint name="left_ur_arm_wrist_2_joint" value="1.5707" />
         <joint name="left_ur_arm_wrist_3_joint" value="0" />
     </group_state>
@@ -44,7 +44,7 @@
         <joint name="right_ur_arm_elbow_joint" value="2.6473" />
         <joint name="right_ur_arm_shoulder_lift_joint" value="-2.6473" />
         <joint name="right_ur_arm_shoulder_pan_joint" value="1.5707" />
-        <joint name="right_ur_arm_wrist_1_joint" value="-1.5707" />
+        <joint name="right_ur_arm_wrist_1_joint" value="3.1415" />
         <joint name="right_ur_arm_wrist_2_joint" value="-1.5707" />
         <joint name="right_ur_arm_wrist_3_joint" value="0" />
     </group_state>
