@@ -3,8 +3,9 @@
   <arg name="use_tool_communication" default="false" doc="On e-Series robots tool communication can be enabled with this argument"/>
   <arg name="controller_config_file" default="$(find husky_ur_bringup)/config/ur_controllers.yaml" doc="Config file used for defining the ROS-Control controllers."/>
   <arg name="robot_ip" default="$(optenv HUSKY_UR_IP 192.168.131.40)" doc="IP address by which the robot can be reached."/>
-  <arg name="reverse_port" default="50001" doc="Port that will be opened by the driver to allow direct communication between the driver and the robot controller."/>
-  <arg name="script_sender_port" default="50002" doc="The driver will offer an interface to receive the program's URScript on this port. If the robot cannot connect to this port, `External Control` will stop immediately."/>
+  <arg name="reverse_port" default="$(optenv HUSKY_UR_REVERSE_PORT 50001)" doc="Port that will be opened by the driver to allow direct communication between the driver and the robot controller."/>
+  <arg name="script_sender_port" default="$(optenv HUSKY_UR_SENDER_PORT 50002)" doc="The driver will offer an interface to receive the program's URScript on this port. If the robot cannot connect to this port, `External Control` will stop immediately."/>
+  <arg name="trajectory_port" default="$(optenv HUSKY_UR_TRAJECTORY_PORT 50003)" doc="Port that will be opened by the driver to allow trajectory forwarding."/>
   <arg name="kinematics_config" default="$(eval optenv('HUSKY_UR_KINEMATICS_CONFIG', find('husky_ur_bringup')+'/config/default_config.yaml'))" doc="Kinematics config file used for calibration correction. This will be used to verify the robot's calibration is matching the robot_description."/>
   <arg name="prefix" default="ur_arm_" doc="tf_prefix used for the robot."/>
   <arg name="controllers" default="ur_arm_joint_state_controller ur_arm_scaled_pos_joint_traj_controller ur_arm_speed_scaling_state_controller ur_arm_force_torque_sensor_controller ur_arm_robot_status_controller" />
@@ -28,6 +29,7 @@
       <arg name="robot_ip" value="$(arg robot_ip)"/>
       <arg name="reverse_port" value="$(arg reverse_port)"/>
       <arg name="script_sender_port" value="$(arg script_sender_port)"/>
+      <arg name="trajectory_port" value="$(arg trajectory_port)"/>
       <arg name="kinematics_config" value="$(arg kinematics_config)"/>
       <arg name="tf_prefix" value="$(arg prefix)"/>
       <arg name="controllers" value="$(arg controllers)"/>
