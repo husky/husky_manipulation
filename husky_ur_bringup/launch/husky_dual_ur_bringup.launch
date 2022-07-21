@@ -1,46 +1,89 @@
+<?xml version="1.0"?>
 <launch>
-  <arg name="left_prefix" default="left_ur_arm_"/>
-  <arg name="right_prefix" default="right_ur_arm_"/>
-  <arg name="left_robot_ip" default="$(optenv HUSKY_LEFT_UR_IP 192.168.131.40)"/>
-  <arg name="right_robot_ip" default="$(optenv HUSKY_RIGHT_UR_IP 192.168.131.41)"/>
-  <arg name="left_robot_port" default="50001"/>
-  <arg name="right_robot_port" default="50000"/>
-  <arg name="min_payload"  default="0.0"/>
-  <arg name="max_payload"  default="10.0"/>
-  <arg name="servoj_time" default="0.008" />
-  <arg name="max_velocity" default="10.0"/>
+  <arg name="use_tool_communication" default="false" doc="On e-Series robots tool communication can be enabled with this argument"/>
 
-  <!-- LEFT ARM -->
-  <node name="left_ur_driver" pkg="ur_modern_driver" type="ur_driver"
-    args="$(arg left_robot_ip) $(arg left_robot_port)" output="screen">
-    <remap from="/follow_joint_trajectory" to="left_ur_arm_controller/follow_joint_trajectory"/>
-    <remap from="/ur_driver" to="left_ur_arm_controller/ur_driver"/>
-    <param name="prefix" type="str" value="$(arg left_prefix)" />
-    <param name="robot_ip_address" type="str" value="$(arg left_robot_ip)" />
-    <param name="reverse_port" value="$(arg left_robot_port)"/>
-    <param name="min_payload" type="double" value="$(arg min_payload)" />
-    <param name="max_payload" type="double" value="$(arg max_payload)" />
-    <param name="max_velocity" type="double" value="$(arg max_velocity)" />
-  </node>
+  <arg name="left_controller_config_file" default="$(find husky_ur_bringup)/config/left_ur_controllers.yaml" doc="Config file used for defining the ROS-Control controllers."/>
+  <arg name="left_robot_ip" default="$(optenv HUSKY_LEFT_UR_IP 192.168.131.40)" doc="IP address by which the robot can be reached."/>
+  <arg name="left_kinematics_config" default="$(eval optenv('HUSKY_LEFT_UR_KINEMATICS_CONFIG', find('husky_ur_bringup')+'/config/default_config.yaml'))" doc="Kinematics config file used for calibration correction. This will be used to verify the robot's calibration is matching the robot_description."/>
+  <arg name="left_prefix" default="left_ur_arm_" doc="tf_prefix used for the robot."/>
+  <arg name="left_controllers" default="left_ur_arm_joint_state_controller left_ur_arm_scaled_pos_joint_traj_controller left_ur_arm_speed_scaling_state_controller left_ur_arm_force_torque_sensor_controller left_ur_arm_robot_status_controller" />
+  <arg name="left_stopped_controllers" default="left_ur_arm_pos_joint_traj_controller"/>
+  <arg name="left_reverse_port" default="$(optenv HUSKY_LEFT_UR_REVERSE_PORT 50001)" doc="Port that will be opened by the driver to allow direct communication between the driver and the robot controller."/>
+  <arg name="left_script_sender_port" default="$(optenv HUSKY_LEFT_UR_SENDER_PORT 50002)" doc="The driver will offer an interface to receive the program's URScript on this port. If the robot cannot connect to this port, `External Control` will stop immediately."/>
+  <arg name="left_trajectory_port" default="$(optenv HUSKY_LEFT_UR_TRAJECTORY_PORT 50003)" doc="Port that will be opened by the driver to allow trajectory forwarding."/>
 
-  <node pkg="tf2_ros" type="buffer_server" name="left_tf2_buffer_server" respawn="true">
-    <param name="buffer_size" value="120.0"/>
-  </node>
+  <arg name="right_controller_config_file" default="$(find husky_ur_bringup)/config/right_ur_controllers.yaml" doc="Config file used for defining the ROS-Control controllers."/>
+  <arg name="right_robot_ip" default="$(optenv HUSKY_RIGHT_UR_IP 192.168.131.41)" doc="IP address by which the robot can be reached."/>
+  <arg name="right_kinematics_config" default="$(eval optenv('HUSKY_RIGHT_UR_KINEMATICS_CONFIG', find('husky_ur_bringup')+'/config/default_config.yaml'))" doc="Kinematics config file used for calibration correction. This will be used to verify the robot's calibration is matching the robot_description."/>
+  <arg name="right_prefix" default="right_ur_arm_" doc="tf_prefix used for the robot."/>
+  <arg name="right_controllers" default="right_ur_arm_joint_state_controller right_ur_arm_scaled_pos_joint_traj_controller right_ur_arm_speed_scaling_state_controller right_ur_arm_force_torque_sensor_controller right_ur_arm_robot_status_controller" />
+  <arg name="right_stopped_controllers" default="right_ur_arm_pos_joint_traj_controller"/>
+  <arg name="right_reverse_port" default="$(optenv HUSKY_RIGHT_UR_REVERSE_PORT 60001)" doc="Port that will be opened by the driver to allow direct communication between the driver and the robot controller."/>
+  <arg name="right_script_sender_port" default="$(optenv HUSKY_RIGHT_UR_SENDER_PORT 60002)" doc="The driver will offer an interface to receive the program's URScript on this port. If the robot cannot connect to this port, `External Control` will stop immediately."/>
+  <arg name="right_trajectory_port" default="$(optenv HUSKY_RIGHT_UR_TRAJECTORY_PORT 60003)" doc="Port that will be opened by the driver to allow trajectory forwarding."/>
 
-  <!-- RIGHT ARM -->
-  <node name="right_ur_driver" pkg="ur_modern_driver" type="ur_driver"
-    args="$(arg right_robot_ip) $(arg right_robot_port)" output="screen">
-    <remap from="/follow_joint_trajectory" to="right_ur_arm_controller/follow_joint_trajectory"/>
-    <remap from="/ur_driver" to="right_ur_arm_controller/ur_driver"/>
-    <param name="prefix" type="str" value="$(arg right_prefix)" />
-    <param name="robot_ip_address" type="str" value="$(arg right_robot_ip)" />
-    <param name="reverse_port" value="$(arg right_robot_port)"/>
-    <param name="min_payload" type="double" value="$(arg min_payload)" />
-    <param name="max_payload" type="double" value="$(arg max_payload)" />
-    <param name="max_velocity" type="double" value="$(arg max_velocity)" />
-  </node>
+  <arg name="tool_voltage" default="0" doc="Tool voltage set at the beginning of the UR program. Only used, when `use_tool_communication` is set to true."/>
+  <arg name="tool_parity" default="0" doc="Parity configuration used for tool communication. Only used, when `use_tool_communication` is set to true."/>
+  <arg name="tool_baud_rate" default="115200" doc="Baud rate used for tool communication. Only used, when `use_tool_communication` is set to true."/>
+  <arg name="tool_stop_bits" default="1" doc="Number of stop bits used for tool communication. Only used, when `use_tool_communication` is set to true."/>
+  <arg name="tool_rx_idle_chars" default="1.5" doc="Number of idle chars in RX channel used for tool communication. Only used, when `use_tool_communication` is set to true."/>
+  <arg name="tool_tx_idle_chars" default="3.5" doc="Number of idle chars in TX channel used for tool communication. Only used, when `use_tool_communication` is set to true."/>
+  <arg name="tool_device_name" default="/tmp/ttyUR" doc="Local device name used for tool communication. Only used, when `use_tool_communication` is set to true."/>
+  <arg name="tool_tcp_port" default="54321" doc="Port on which the robot controller publishes the tool comm interface. Only used, when `use_tool_communication` is set to true."/>
+  <arg name="headless_mode" default="false" doc="Automatically send URScript to robot to execute. On e-Series this does require the robot to be in 'remote-control' mode. With this, the URCap is not needed on the robot."/>
+  <arg name="debug" default="false" />
 
-  <node pkg="tf2_ros" type="buffer_server" name="right_tf2_buffer_server" respawn="true">
-    <param name="buffer_size" value="120.0"/>
-  </node>
+  <group ns="left_ur">
+    <include file="$(find ur_robot_driver)/launch/ur_control.launch">
+      <arg name="debug" value="$(arg debug)"/>
+      <arg name="use_tool_communication" value="$(arg use_tool_communication)"/>
+      <arg name="controller_config_file" value="$(arg left_controller_config_file)"/>
+      <arg name="robot_ip" value="$(arg left_robot_ip)"/>
+      <arg name="reverse_port" value="$(arg left_reverse_port)"/>
+      <arg name="script_sender_port" value="$(arg left_script_sender_port)"/>
+      <arg name="trajectory_port" value="$(arg left_trajectory_port)"/>
+      <arg name="kinematics_config" value="$(arg left_kinematics_config)"/>
+      <arg name="tf_prefix" value="$(arg left_prefix)"/>
+      <arg name="controllers" value="$(arg left_controllers)"/>
+      <arg name="stopped_controllers" value="$(arg left_stopped_controllers)"/>
+      <arg name="headless_mode" value="$(arg headless_mode)"/>
+      <arg name="tool_voltage" value="$(arg tool_voltage)"/>
+      <arg name="tool_parity" value="$(arg tool_parity)"/>
+      <arg name="tool_baud_rate" value="$(arg tool_baud_rate)"/>
+      <arg name="tool_stop_bits" value="$(arg tool_stop_bits)"/>
+      <arg name="tool_rx_idle_chars" value="$(arg tool_rx_idle_chars)"/>
+      <arg name="tool_tx_idle_chars" value="$(arg tool_tx_idle_chars)"/>
+      <arg name="tool_device_name" value="$(arg tool_device_name)"/>
+      <arg name="tool_tcp_port" value="$(arg tool_tcp_port)"/>
+    </include>
+
+    <node name="joint_state_relay" type="relay" pkg="topic_tools" args="joint_states /joint_states" />
+   </group>
+
+   <group ns="right_ur">
+     <include file="$(find ur_robot_driver)/launch/ur_control.launch">
+       <arg name="debug" value="$(arg debug)"/>
+       <arg name="use_tool_communication" value="$(arg use_tool_communication)"/>
+       <arg name="controller_config_file" value="$(arg right_controller_config_file)"/>
+       <arg name="robot_ip" value="$(arg right_robot_ip)"/>
+       <arg name="reverse_port" value="$(arg right_reverse_port)"/>
+       <arg name="script_sender_port" value="$(arg right_script_sender_port)"/>
+       <arg name="trajectory_port" value="$(arg right_trajectory_port)"/>
+       <arg name="kinematics_config" value="$(arg right_kinematics_config)"/>
+       <arg name="tf_prefix" value="$(arg right_prefix)"/>
+       <arg name="controllers" value="$(arg right_controllers)"/>
+       <arg name="stopped_controllers" value="$(arg right_stopped_controllers)"/>
+       <arg name="headless_mode" value="$(arg headless_mode)"/>
+       <arg name="tool_voltage" value="$(arg tool_voltage)"/>
+       <arg name="tool_parity" value="$(arg tool_parity)"/>
+       <arg name="tool_baud_rate" value="$(arg tool_baud_rate)"/>
+       <arg name="tool_stop_bits" value="$(arg tool_stop_bits)"/>
+       <arg name="tool_rx_idle_chars" value="$(arg tool_rx_idle_chars)"/>
+       <arg name="tool_tx_idle_chars" value="$(arg tool_tx_idle_chars)"/>
+       <arg name="tool_device_name" value="$(arg tool_device_name)"/>
+       <arg name="tool_tcp_port" value="$(arg tool_tcp_port)"/>
+     </include>
+
+     <node name="joint_state_relay" type="relay" pkg="topic_tools" args="joint_states /joint_states" />
+    </group>
 </launch>

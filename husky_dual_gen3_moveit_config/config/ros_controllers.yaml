@@ -34,7 +34,7 @@ joint_state_controller:
   type: joint_state_controller/JointStateController
   publish_rate: 50
 controller_list:
-  - name: left_kinova_arm/gen3_joint_trajectory_controller
+  - name: left_kinova_arm/left_kinova_arm_gen3_joint_trajectory_controller
     action_ns: follow_joint_trajectory
     type: FollowJointTrajectory
     joints:
@@ -45,7 +45,7 @@ controller_list:
       - left_kinova_arm_joint_5
       - left_kinova_arm_joint_6
       - left_kinova_arm_joint_7
-  - name: right_kinova_arm/gen3_joint_trajectory_controller
+  - name: right_kinova_arm/right_kinova_arm_gen3_joint_trajectory_controller
     action_ns: follow_joint_trajectory
     type: FollowJointTrajectory
     joints:

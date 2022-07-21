@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:include filename="$(find husky_kinova_description)/urdf/husky_kinova_description.urdf.xacro"/>
+  <xacro:include filename="$(find kinova_description)/urdf/j2s6s300.xacro"/>
+
+  <xacro:j2s6s300  base_parent="arm_mount_link" prefix="kinova_arm"/>
+</robot>
