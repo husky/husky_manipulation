@@ -3,13 +3,13 @@
   <joint name="franka_mount_joint" type="fixed">
     <parent link="base_link" />
     <child link="franka_mount_link" />
-    <origin xyz="$(optenv HUSKY_FRANKA_XYZ 0.494 0 0.225)" rpy="$(optenv HUSKY_FRANKA_RPY 0 0 0)"/>
+    <origin xyz="$(optenv HUSKY_FRANKA_XYZ 0.4 0 0.231)" rpy="$(optenv HUSKY_FRANKA_RPY 0 0 0)"/>
   </joint>
 
   <link name="franka_mount_link" />
 
-  <xacro:include filename="$(find franka_description)/robots/panda_arm.xacro"/>
-  <xacro:include filename="$(find franka_description)/robots/hand.xacro"/>
-  <xacro:panda_arm connected_to="franka_mount_link"/>
-  <xacro:hand ns="panda" rpy="0 0 ${-pi/4}" connected_to="panda_link8"/>
+  <xacro:include filename="$(find franka_description)/robots/common/franka_arm.xacro"/>
+  <xacro:include filename="$(find franka_description)/robots/common/franka_hand.xacro"/>
+  <xacro:franka_arm connected_to="franka_mount_link" joint_limits="${xacro.load_yaml('$(find franka_description)/robots/panda/joint_limits.yaml')}" />
+  <xacro:franka_hand rpy="0 0 ${-pi/4}" connected_to="panda_link8"/>
 </robot>
