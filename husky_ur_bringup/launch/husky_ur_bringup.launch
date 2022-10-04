@@ -1,5 +1,4 @@
 <launch>
-  <arg name="robot_model"             default="ur5"                                       doc="UR robot type, one of: ur3, ur3e, ur5, ur5e, ur10, ur10e, ur16e"/>
   <!-- General Robot Parameters -->
   <arg name="debug"                   default="false"                                     doc="Debug flag that will get passed on to ur_common.launch"/>
   <arg name="robot_ip"                default="$(optenv HUSKY_UR_IP 192.168.131.40)"      doc="IP address by which the robot can be reached."/>
