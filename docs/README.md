@@ -10,6 +10,45 @@ To clone this repository and all necessary dependencies:
 git clone https://github.com/husky/husky_manipulation.git --recursive
 ```
 
+## Workspace Dependencies
+Description and driver packages for most arms will need to be built from source. It is relatively simple to use `catkin_make` to build the packages, however it is important that only the supported branches are used. Therefore, it is higly recommended to use `wstool` to setup the workspace `src` packages from the specified branches in the repositories specified in the `.rosinstall` files. 
+
+Assuming you have setup a workspace already and cloned the `husky_manipulation` package, initialize `wstool`.
+```bash
+# Go to Workspace
+cd ~/catkin_ws
+# Initialize wstool
+wstool init src 
+```
+
+Follow the steps below to setup the source packages of the arm on the Husky. 
+
+### Univeral Robots
+```bash
+# Go to Workspace
+cd ~/catkin_ws
+# Add UR Repository
+wstool merge src/husky_manipulation/ur.rosinstall -t src
+# Update and Install Repository 
+wstool update -t src
+```
+
+### Kinova
+```bash
+# Go to Workspace
+cd ~/catkin_ws
+# Add UR Repository
+wstool merge src/husky_manipulation/kinova.rosinstall -t src
+# Update and Install Repository 
+wstool update -t src
+```
+
+### Franka
+Unlike other arms, Franka provides pre-built Noetic packages:
+```bash
+rosdep install franka_ros
+```
+
 ## URDF
 In your URDF, make sure to include the husky_manipulation description that you want. For example, if you are using a single UR5, make sure to include the line below in your URDF:
 

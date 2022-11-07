@@ -11,5 +11,5 @@
   <xacro:include filename="$(find franka_description)/robots/panda_arm.xacro"/>
   <xacro:include filename="$(find franka_description)/robots/hand.xacro"/>
   <xacro:panda_arm connected_to="franka_mount_link"/>
-  <xacro:hand ns="panda" rpy="0 0 ${-pi/4}" connected_to="panda_link8"/>
+  <xacro:hand arm_id="panda" rpy="0 0 ${-pi/4}" connected_to="panda_link8"/>
 </robot>

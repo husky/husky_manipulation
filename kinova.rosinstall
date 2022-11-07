@@ -1,0 +1,8 @@
+- git:
+    uri: https://github.com/Kinovarobotics/ros_kortex.git
+    local-name: ros_kortex
+    version: noetic-devel
+- git:
+    uri: https://github.com/Kinovarobotics/kinova-ros.git
+    local-name: kinova-ros
+    version: noetic-devel
