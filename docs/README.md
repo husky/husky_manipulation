@@ -46,7 +46,7 @@ wstool update -t src
 ### Franka
 Unlike other arms, Franka provides pre-built Noetic packages:
 ```bash
-sudo apt install ros-noetic-franka-ros
+rosdep install franka_ros
 ```
 
 ## URDF
