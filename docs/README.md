@@ -89,9 +89,12 @@ Go into the src folder in your workspace and run the command below:
 ```
 rosrun husky_ur_moveit_config customize_moveit.sh <new_package_name>
 ```
+> Choose the `moveit_config` that applies to your custom robot. If you have a Gen3, replace `husky_ur_moveit_config` with `husky_gen3_moveit_config`.
 
 That command will make a new moveit package in your src folder that should be ready for customization to your actual platform.
 
+> It is highly encouraged that you name this package: `abc01_husky_moveit_config`, where `abc01` is the project code. \
+> It is also important to move the generated package directory `abc01_husky_moveit_config` into the custom robot repository. That way you can keep it versioned. 
 ### Customize Package
 
 *NOTE* - If you are using the custom_husky setup method (indigo), you will have to make a change to your URDF temporarily when running the setup assistant.  Remove the two lines indicated below from your URDF.  These can be added back in once your MoveIt config has been setup
