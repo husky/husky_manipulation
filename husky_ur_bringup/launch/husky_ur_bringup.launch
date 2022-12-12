@@ -7,6 +7,7 @@
   <arg name="reverse_port"            default="$(optenv HUSKY_UR_REVERSE_PORT 50001)"     doc="Port that will be opened by the driver to allow direct communication between the driver and the robot controller."/>
   <arg name="script_sender_port"      default="$(optenv HUSKY_UR_SENDER_PORT 50002)"      doc="The driver will offer an interface to receive the program's URScript on this port. If the robot cannot connect to this port, `External Control` will stop immediately."/>
   <arg name="trajectory_port"         default="$(optenv HUSKY_UR_TRAJECTORY_PORT 50003)"  doc="Port that will be opened by the driver to allow trajectory forwarding."/>
+  <arg name="script_command_port"     default="$(optenv HUSKY_UR_COMMAND_PORT 50004)"     doc="Port that will be opened by the driver to allow forwarding script commands to the robot."/>
   <arg name="tf_prefix"               default="ur_arm_"                                   doc="tf_prefix used for the robot."/>
   <arg name="controllers"             default="ur_arm_joint_state_controller ur_arm_scaled_pos_joint_traj_controller ur_arm_speed_scaling_state_controller ur_arm_force_torque_sensor_controller" doc="Controllers that are activated by default."/>
   <arg name="stopped_controllers"     default="ur_arm_pos_joint_traj_controller ur_arm_joint_group_vel_controller" doc="Controllers that are initally loaded, but not started."/>
