@@ -1,4 +1,4 @@
 - git:
     uri: https://github.com/clearpathrobotics/robotiq.git
     local-name: robotiq
-    version: kinetic-devel
+    version: noetic-devel

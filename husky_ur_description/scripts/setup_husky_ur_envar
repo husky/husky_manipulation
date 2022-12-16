@@ -1,0 +1,102 @@
+#!/usr/bin/env bash
+gripper_enable=0
+dual_arm=0
+model_arm=0
+help=0
+OPTIND=0
+
+while getopts dghm: flag
+do
+    case "${flag}" in
+        g) gripper_enable=1;;
+        d) dual_arm=1;;
+        h) help=1;;
+        m) model_arm=${OPTARG};;
+    esac
+done
+
+# Arg Check: Model Arm
+case "$model_arm" in
+    "ur3") ;;
+    "ur3e") ;;
+    "ur5") ;;
+    "ur5e") ;;
+    *) echo -e "[Error] Unrecognized UR Arm Model: $model_arm\n"; help=1 ;;
+esac
+
+# Help
+if [[ $help == 1 ]] || [[ $model_arm == 0 ]]
+then
+    echo "Usage: setup_husky_ur_envar -m ARM_MODEL [-d] [-g]"
+    echo "  -h | display this help menu"
+    echo "  -m | [required] arm model: ['ur3', 'ur3e', 'ur5', 'ur5e']"
+    echo "  -d | [optional] add dual arms"
+    echo "  -g | [optional] add gripper to the arm(s)"
+else
+    # Parameter Print
+    echo "Envar Setup Parameters:"
+    echo "  UR Arm Model: $model_arm";
+    echo "  Add Dual: $dual_arm";
+    echo "  Add Gripper: $gripper_enable";
+
+    echo -e "\nEnvars Set:"
+    if [[ $dual_arm == 1 ]]
+    then
+        # Dual Arm: Top Plate Environment Variables
+        export HUSKY_TOP_PLATE_ENABLED=false
+        export HUSKY_LARGE_TOP_PLATE=false
+        export HUSKY_USER_RAIL_ENABLED=false
+        # Dual Arm: Gripper Environment Variables
+        if [[ $gripper_enable == 1 ]]
+        then
+            export HUSKY_LEFT_UR_GRIPPER_ENABLED=true
+            export HUSKY_RIGHT_UR_GRIPPER_ENABLED=true
+        else
+            export HUSKY_LEFT_UR_GRIPPER_ENABLED=false
+            export HUSKY_RIGHT_UR_GRIPPER_ENABLED=false
+        fi
+        # Dual Arm: URDF Extra Environment Variables
+        case "$model_arm" in
+            "ur3") export HUSKY_URDF_EXTRAS=$(catkin_find husky_ur_description urdf/husky_dual_ur3_description.urdf.xacro --first-only);;
+            "ur3e") export HUSKY_URDF_EXTRAS=$(catkin_find husky_ur_description urdf/husky_dual_ur3_e_description.urdf.xacro --first-only);;
+            "ur5") export HUSKY_URDF_EXTRAS=$(catkin_find husky_ur_description urdf/husky_dual_ur5_description.urdf.xacro --first-only);;
+            "ur5e") export HUSKY_URDF_EXTRAS=$(catkin_find husky_ur_description urdf/husky_dual_ur5_e_description.urdf.xacro --first-only);;
+            *) echo -e "[Error] Unrecognized UR Arm Model: $model_arm\n"; help=1 ;;
+        esac
+
+        echo "  export HUSKY_TOP_PLATE_ENABLED=$HUSKY_TOP_PLATE_ENABLED"
+        echo "  export HUSKY_LARGE_TOP_PLATE=$HUSKY_LARGE_TOP_PLATE"
+        echo "  export HUSKY_USER_RAIL_ENABLED=$HUSKY_USER_RAIL_ENABLED"
+        echo "  export HUSKY_LEFT_UR_GRIPPER_ENABLED=$HUSKY_LEFT_UR_GRIPPER_ENABLED"
+        echo "  export HUSKY_RIGHT_UR_GRIPPER_ENABLED=$HUSKY_RIGHT_UR_GRIPPER_ENABLED"
+        echo "  export HUSKY_URDF_EXTRAS=$HUSKY_URDF_EXTRAS"
+    else
+        # Single Arm: Top Plate Environment Variables
+        export HUSKY_TOP_PLATE_ENABLED=true
+        export HUSKY_LARGE_TOP_PLATE=true
+        export HUSKY_USER_RAIL_ENABLED=false
+        # Single Arm: Gripper Environment Variables
+        if [[ $gripper_enable == 1 ]]
+        then
+            export HUSKY_UR_GRIPPER_ENABLED=true
+        else
+            export HUSKY_UR_GRIPPER_ENABLED=false
+        fi
+        # Single Arm: URDF Extra Environment Variables
+        case "$model_arm" in
+            "ur3") export HUSKY_URDF_EXTRAS=$(catkin_find husky_ur_description urdf/husky_ur3_description.urdf.xacro --first-only);;
+            "ur3e") export HUSKY_URDF_EXTRAS=$(catkin_find husky_ur_description urdf/husky_ur3_e_description.urdf.xacro --first-only);;
+            "ur5") export HUSKY_URDF_EXTRAS=$(catkin_find husky_ur_description urdf/husky_ur5_description.urdf.xacro --first-only);;
+            "ur5e") export HUSKY_URDF_EXTRAS=$(catkin_find husky_ur_description urdf/husky_ur5_e_description.urdf.xacro --first-only);;
+            *) echo -e "[Error] Unrecognized UR Arm Model: $model_arm\n"; help=1 ;;
+        esac
+        echo "  export HUSKY_TOP_PLATE_ENABLED=$HUSKY_TOP_PLATE_ENABLED"
+        echo "  export HUSKY_LARGE_TOP_PLATE=$HUSKY_LARGE_TOP_PLATE"
+        echo "  export HUSKY_USER_RAIL_ENABLED=$HUSKY_USER_RAIL_ENABLED"
+        echo "  export HUSKY_UR_GRIPPER_ENABLED=$HUSKY_UR_GRIPPER_ENABLED"
+        echo "  export HUSKY_URDF_EXTRAS=$HUSKY_URDF_EXTRAS"
+    fi
+fi
+
+# Unset variables
+unset 

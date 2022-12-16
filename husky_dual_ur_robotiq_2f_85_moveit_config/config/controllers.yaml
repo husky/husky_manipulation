@@ -1,0 +1,31 @@
+controller_list:
+  - name: left_ur_arm_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
+    joints:
+      - left_ur_arm_shoulder_pan_joint
+      - left_ur_arm_shoulder_lift_joint
+      - left_ur_arm_elbow_joint
+      - left_ur_arm_wrist_1_joint
+      - left_ur_arm_wrist_2_joint
+      - left_ur_arm_wrist_3_joint
+  - name: right_ur_arm_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
+    joints:
+      - right_ur_arm_shoulder_pan_joint
+      - right_ur_arm_shoulder_lift_joint
+      - right_ur_arm_elbow_joint
+      - right_ur_arm_wrist_1_joint
+      - right_ur_arm_wrist_2_joint
+      - right_ur_arm_wrist_3_joint
+  - name: /left_gripper/robotiq_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
+    joints:
+      - left_ur_arm_gripper_finger_joint
+  - name: /right_gripper/robotiq_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
+    joints:
+      - right_ur_arm_gripper_finger_joint

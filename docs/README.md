@@ -29,6 +29,8 @@ Follow the steps below to setup the source packages of the arm on the Husky.
 cd ~/catkin_ws
 # Add UR Repository
 wstool merge src/husky_manipulation/ur.rosinstall -t src
+# Add Robotiq Repository If Gripper is Required
+wstool merge src/husky_manipulation/robotiq.rosinstall -t src
 # Update and Install Repository 
 wstool update -t src
 ```
@@ -59,9 +61,13 @@ In your URDF, make sure to include the husky_manipulation description that you w
 You will then want to export your URDF as the URDF_EXTRA for your robot.  This will "attach" it to the Husky.  It's convenient to add all of these into a single shell script file that can be sourced later. Make sure to source the initial script as that will make sure to set any other necessary environment variables.
 
 ```
-source $(catkin_find husky_ur_description)/scripts/husky_ur5_envar.sh
-export HUSKY_URDF_EXTRAS=$(catkin_find your_description_package urdf/your_description.urdf.xacro --first-only)
+# UR Arms
+source $(catkin_find husky_ur_description)/scripts/setup_husky_ur_envar -m [UR_MODEL] [-d] [-g]
 ```
+> The `setup_husky_ur_envar` script will export all the environment variables that correspond to the input parameters. 
+> You must pass it `-m UR_MODEL`, where `UR_MODEL` can be one of the following: `ur3`, `ur3e`, `ur5`, `ur5e`.
+> If you pass `-d` it will add the dual arm version. 
+> If you pass `-g` a Robotiq gripper will be added.
 
 ### Arm Positioning
 Following above should make your Husky with an arm/arms attached to it.  They will be attached in the default locations.  If you need to change where the arm is mounted, export the necessary variables below.
@@ -90,20 +96,13 @@ Go into the src folder in your workspace and run the command below:
 rosrun husky_ur_moveit_config customize_moveit.sh <new_package_name>
 ```
 > Choose the `moveit_config` that applies to your custom robot. If you have a Gen3, replace `husky_ur_moveit_config` with `husky_gen3_moveit_config`.
+> If you have a Robotiq grip on a UR arm then use: `husky_ur_robotiq_2f_85_moveit_config`
 
 That command will make a new moveit package in your src folder that should be ready for customization to your actual platform.
 
 > It is highly encouraged that you name this package: `abc01_husky_moveit_config`, where `abc01` is the project code. \
 > It is also important to move the generated package directory `abc01_husky_moveit_config` into the custom robot repository. That way you can keep it versioned. 
 ### Customize Package
-
-*NOTE* - If you are using the custom_husky setup method (indigo), you will have to make a change to your URDF temporarily when running the setup assistant.  Remove the two lines indicated below from your URDF.  These can be added back in once your MoveIt config has been setup
-
-```
-<xacro:include filename="$(find husky_description)/urdf/husky.urdf.xacro" />
-<xacro:husky_robot />
-```
-
 To customize the moveit config, run the command below:
 
 ```
