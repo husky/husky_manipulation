@@ -19,5 +19,6 @@ scripts/setup_husky_ur3_e_envar
 scripts/setup_husky_ur3_envar
 scripts/setup_husky_ur5_e_envar
 scripts/setup_husky_ur5_envar
+scripts/setup_husky_ur_envar
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
