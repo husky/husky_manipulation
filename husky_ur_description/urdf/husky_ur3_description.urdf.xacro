@@ -3,11 +3,23 @@
 
   <xacro:include filename="$(find ur_description)/urdf/inc/ur3_macro.xacro" />
 
+  <!-- Parameters -->
+  <xacro:arg name="arm_xyz" default="$(optenv HUSKY_UR_XYZ -0.105 0.0 0.0)"/>
+  <xacro:arg name="arm_rpy" default="$(optenv HUSKY_UR_RPY 0 0 3.1415927)"/>
+  <xacro:arg name="arm_gripper_enable" default="$(optenv HUSKY_UR_GRIPPER_ENABLED 0)" />
+
   <joint name="arm_mount_joint" type="fixed">
     <parent link="top_plate_front_link" />
     <child link="ur_arm_base_link" />
-    <origin xyz="$(optenv HUSKY_UR_XYZ -0.105 0.0 0.0)" rpy="$(optenv HUSKY_UR_RPY 0 0 3.1415927)"/>
+    <origin xyz="$(arg arm_xyz)" rpy="$(arg arm_rpy)"/>
   </joint>
 
   <xacro:ur3_robot prefix="ur_arm_" />
+
+  <!-- Grippers -->
+  <xacro:if value="$(arg arm_gripper_enable)">
+    <xacro:include filename="$(find husky_ur_description)/urdf/inc/ur_robotiq_2f_gripper.urdf.xacro" />
+    <xacro:ur_robotiq_2f_gripper prefix="ur_arm_gripper" parent="ur_arm_tool0" />
+  </xacro:if>
+
 </robot>

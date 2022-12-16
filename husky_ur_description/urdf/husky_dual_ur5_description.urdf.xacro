@@ -3,6 +3,16 @@
 
   <xacro:include filename="$(find ur_description)/urdf/inc/ur5_macro.xacro" />
 
+  <!-- Parameters -->
+  <xacro:arg name="left_arm_xyz"  default="$(optenv HUSKY_LEFT_UR_XYZ 0.1225 0.14891 0.13371)" />
+  <xacro:arg name="left_arm_rpy"  default="$(optenv HUSKY_LEFT_UR_RPY 0.785398 0 3.14159)" />
+  <xacro:arg name="right_arm_xyz" default="$(optenv HUSKY_RIGHT_UR_XYZ 0.1225 -0.14891 0.13371)" />
+  <xacro:arg name="right_arm_rpy" default="$(optenv HUSKY_RIGHT_UR_RPY 0.785398 0 0)" />
+
+  <xacro:arg name="left_arm_gripper_enable" default="$(optenv HUSKY_LEFT_UR_GRIPPER_ENABLED 0)" />
+  <xacro:arg name="right_arm_gripper_enable" default="$(optenv HUSKY_RIGHT_UR_GRIPPER_ENABLED 0)" />
+
+  <!-- Bulk Head -->
   <link name="dual_arm_bulkhead_link">
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -27,15 +37,26 @@
   <joint name="left_arm_mount_joint" type="fixed">
     <parent link="dual_arm_bulkhead_link" />
     <child link="left_ur_arm_base_link" />
-    <origin xyz="$(optenv HUSKY_LEFT_UR_XYZ 0.1225 0.14891 0.13371)" rpy="$(optenv HUSKY_LEFT_UR_RPY 0.785398 0 3.14159)"/>
+    <origin xyz="$(arg left_arm_xyz)" rpy="$(arg left_arm_rpy)"/>
   </joint>
 
   <joint name="right_arm_mount_joint" type="fixed">
     <parent link="dual_arm_bulkhead_link" />
     <child link="right_ur_arm_base_link" />
-    <origin xyz="$(optenv HUSKY_RIGHT_UR_XYZ 0.1225 -0.14891 0.13371)" rpy="$(optenv HUSKY_RIGHT_UR_RPY 0.785398 0 0)"/>
+    <origin xyz="$(arg right_arm_xyz)" rpy="$(arg right_arm_rpy)"/>
   </joint>
 
+  <!-- Arms -->
   <xacro:ur5_robot prefix="right_ur_arm_" />
   <xacro:ur5_robot prefix="left_ur_arm_" />
+
+  <!-- Grippers -->
+  <xacro:if value="$(arg left_arm_gripper_enable)">
+    <xacro:include filename="$(find husky_ur_description)/urdf/inc/ur_robotiq_2f_gripper.urdf.xacro" />
+    <xacro:ur_robotiq_2f_gripper prefix="left_ur_arm_gripper" parent="left_ur_arm_tool0" />
+  </xacro:if>
+  <xacro:if value="$(arg right_arm_gripper_enable)">
+    <xacro:include filename="$(find husky_ur_description)/urdf/inc/ur_robotiq_2f_gripper.urdf.xacro" />
+    <xacro:ur_robotiq_2f_gripper prefix="right_ur_arm_gripper" parent="right_ur_arm_tool0" />
+  </xacro:if>
 </robot>

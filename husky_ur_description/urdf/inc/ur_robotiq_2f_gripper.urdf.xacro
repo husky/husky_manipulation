@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+  <!-- Robotiq 2F  Griper -->
+  <xacro:include filename="$(find robotiq_2f_85_gripper_visualization)/urdf/robotiq_arg2f_85_model_macro.xacro" />
+
+  <xacro:macro name="ur_robotiq_2f_gripper" params="prefix parent">
+    <!-- Tool Adapter -->
+    <link name="${prefix}_interface_link">
+      <visual>
+        <geometry>
+          <cylinder length="0.028" radius="0.0375"/>
+        </geometry>
+    <material name="dark_grey"/>
+      </visual>
+      <collision>
+        <geometry>
+          <cylinder length="0.028" radius="0.0375"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}_interface_joint" type="fixed">
+      <parent link="${parent}" />
+      <child link="${prefix}_interface_link" />
+      <origin xyz="0 0 0.01" rpy="0 0 0"/>
+    </joint>
+
+    <!-- Attach the Gripper to Tool Adapter-->
+    <joint name="${prefix}_base_link_joint" type="fixed">
+      <parent link="${prefix}_interface_link" />
+      <child link="${prefix}_robotiq_arg2f_base_link" />
+      <origin xyz="0 0 -0.005" rpy="0 0 1.5708"/>
+    </joint>
+  
+    <xacro:robotiq_arg2f_85 prefix="${prefix}_" />
+  </xacro:macro>
+</robot>
