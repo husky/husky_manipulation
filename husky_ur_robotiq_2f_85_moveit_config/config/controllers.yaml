@@ -1,0 +1,16 @@
+controller_list:
+  - name: /ur/ur_arm_scaled_pos_joint_traj_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
+    joints:
+      - ur_arm_shoulder_pan_joint
+      - ur_arm_shoulder_lift_joint
+      - ur_arm_elbow_joint
+      - ur_arm_wrist_1_joint
+      - ur_arm_wrist_2_joint
+      - ur_arm_wrist_3_joint
+  - name: /gripper/robotiq_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
+    joints:
+      - ur_arm_gripper_finger_joint
