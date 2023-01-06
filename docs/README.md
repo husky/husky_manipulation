@@ -35,6 +35,8 @@ wstool merge src/husky_manipulation/robotiq.rosinstall -t src
 wstool update -t src
 ```
 
+See [Robotiq Gripper on UR](robotiq_ur.md) to see how to configure the gripper on the arm.
+
 ### Kinova
 ```bash
 # Go to Workspace
