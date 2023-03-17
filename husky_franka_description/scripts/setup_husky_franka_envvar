@@ -1,0 +1,14 @@
+# Franka Arm Parameters
+export HUSKY_FRANKA_MODEL=fr3 # or panda
+export HUSKY_FRANKA_XYZ="0.41 0 0.231"
+export HUSKY_FRANKA_RPY="0 0 0"
+export HUSKY_FRANKA_PARENT="base_link"
+export HUSKY_FRANKA_GRIPPER_ENABLED="false"
+export HUSKY_FRANKA_GRIPPER_XYZ="0 0 0.1034"
+export HUSKY_FRANKA_GRIPPER_RPY="0 0 0"
+# Husky Top Plate Parameters
+export HUSKY_USER_RAIL_ENABLED=0
+export HUSKY_LARGE_TOP_PLATE=1
+export HUSKY_PACS_ENABLED=0
+# Add URDF to Husky Extras
+export HUSKY_URDF_EXTRAS=$(catkin_find husky_franka_description urdf/husky_franka_description.urdf.xacro --first-only)
