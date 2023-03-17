@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="husky">
+    <xacro:macro name="arm" params="name tip_link">
+        <!--GROUPS: Representation of a set of joints and links. This can be useful for specifying DOF to plan for, defining arms, end effectors, etc-->
+        <!--LINKS: When a link is specified, the parent joint of that link (if it exists) is automatically included-->
+        <!--JOINTS: When a joint is specified, the child link of that joint (which will always exist) is automatically included-->
+        <!--CHAINS: When a chain is specified, all the links along the chain (including endpoints) are included in the group. Additionally, all the joints that are parents to included links are also included. This means that joints along the chain and the parent joint of the base link are included in the group-->
+        <!--SUBGROUPS: Groups can also be formed by referencing to already defined group names-->
+        <group name="${name}">
+            <chain base_link="$(arg arm_id)_link0" tip_link="${tip_link}" />
+        </group>
+        <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
+        <group_state name="ready" group="${name}">
+            <joint name="$(arg arm_id)_joint1" value="0" />
+            <joint name="$(arg arm_id)_joint2" value="${-pi/4}" />
+            <joint name="$(arg arm_id)_joint3" value="0" />
+            <joint name="$(arg arm_id)_joint4" value="${-3*pi/4}" />
+            <joint name="$(arg arm_id)_joint5" value="0" />
+            <joint name="$(arg arm_id)_joint6" value="${pi/2}" />
+            <joint name="$(arg arm_id)_joint7" value="${pi/4}" />
+        </group_state>
+        <group_state name="extended" group="${name}">
+            <joint name="$(arg arm_id)_joint1" value="0" />
+            <joint name="$(arg arm_id)_joint2" value="0" />
+            <joint name="$(arg arm_id)_joint3" value="0" />
+            <joint name="$(arg arm_id)_joint4" value="-0.1" />
+            <joint name="$(arg arm_id)_joint5" value="0" />
+            <joint name="$(arg arm_id)_joint6" value="${pi}" />
+            <joint name="$(arg arm_id)_joint7" value="${pi/4}" />
+        </group_state>
+    </xacro:macro>
+
+    <xacro:macro name="disable_collisions_for" params="link:=^ others:=^">
+        <xacro:if value="${others}">
+            <xacro:property name="other" value="${others.pop(0)}" />
+            <disable_collisions link1="${link}" link2="${other}" reason="Never" />
+            <!-- recursively call -->
+            <xacro:disable_collisions_for />
+        </xacro:if>
+    </xacro:macro>
+    <xacro:macro name="enable_collisions_for" params="link:=^ others:=^">
+        <xacro:if value="${others}">
+            <xacro:property name="other" value="${others.pop(0)}" />
+            <enable_collisions link1="${link}" link2="${other}" />
+            <!-- recursively call -->
+            <xacro:enable_collisions_for />
+        </xacro:if>
+    </xacro:macro>
+    <xacro:macro name="configure_collisions" params="link enabled:=${[]}">
+        <!-- Disable collision checking between normal links, as these are handled by "sc" links -->
+        <xacro:property name="link_fmt" value="$(arg arm_id)_link{}" />
+        <xacro:disable_collisions_for link="${link_fmt.format(link)}" others="${[link_fmt.format(i) for i in python.range(8)]}" />
+
+        <!-- Disable all collision checking for ${link}_sc -->
+        <xacro:property name="link_fmt" value="$(arg arm_id)_link{}_sc" />
+        <disable_default_collisions link="${link_fmt.format(link)}" />
+        <!-- Re-enable collisions checking for selected links -->
+        <xacro:enable_collisions_for link="${link_fmt.format(link)}" others="${[link_fmt.format(i) for i in enabled]}" />
+    </xacro:macro>
+
+    <!-- Configure ACM -->
+    <xacro:configure_collisions link="0" enabled="${[5,6,7]}" />
+    <xacro:configure_collisions link="1" enabled="${[5,6,7]}" />
+    <xacro:configure_collisions link="2" enabled="${[5,6,7]}" />
+    <xacro:configure_collisions link="3" enabled="${[7]}" />
+    <xacro:configure_collisions link="4" />
+    <xacro:configure_collisions link="5" />
+    <xacro:configure_collisions link="6" />
+    <xacro:configure_collisions link="7" />
+</robot>

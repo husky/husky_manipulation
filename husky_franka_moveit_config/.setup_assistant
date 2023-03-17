@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: husky_description
+    relative_path: urdf/husky.urdf.xacro
+    xacro_args: ""
+  SRDF:
+    relative_path: config/panda.srdf.xacro
+  CONFIG:
+    author_name: Luis Camero
+    author_email: lcamero@clearpathrobotics.com
+    generated_timestamp: 1679084144
