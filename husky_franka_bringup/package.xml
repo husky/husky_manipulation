@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>husky_franka_bringup</name>
+  <version>0.0.1</version>
+  <description>Husky Franka BringUp Package, contains all launch files to interact with Franka</description>
+  <maintainer email="lcamero@clearpathrobotics.com">Luis Camero</maintainer>
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>franka_control</depend>
+  <depend>franka_hw</depend>
+  <depend>franka_msgs</depend>
+
+  <exec_depend>franka_description</exec_depend>
+  <exec_depend>franka_gripper</exec_depend>
+  <exec_depend>joint_state_publisher</exec_depend>
+  <exec_depend>joint_trajectory_controller</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+
+</package>
