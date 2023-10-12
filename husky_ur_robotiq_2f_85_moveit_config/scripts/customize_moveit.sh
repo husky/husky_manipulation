@@ -6,7 +6,7 @@ then
   cd "$1"
 
   echo "Copying Single UR Moveit Config"
-  cp -r $(catkin_find husky_ur_robotiq_2f_85_moveit_config)/. .
+  cp -r /home/lcamero/Workspaces/arm_ws/src/husky_manipulation/husky_ur_robotiq_2f_85_moveit_config/. .
   echo "Updating Package"
   grep -rli 'husky_ur_robotiq_2f_85_moveit_config' * | xargs -i@ sed -i 's/husky_ur_robotiq_2f_85_moveit_config/'$1'/g' @
   echo "Done"
