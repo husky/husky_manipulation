@@ -1,5 +1,6 @@
 <launch>
-  <!-- RIGHT ARM -->
+  <arg name="use_hard_limits" default="false"/>
+
   <arg name="robot_name" default="kinova_arm"/>
   <arg name="prefix" default="kinova_arm_"/>
   <arg name="arm" default="gen3"/>
